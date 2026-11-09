@@ -1,0 +1,177 @@
+{% extends "base.html" %}
+
+{% block title %}Patient Testimonials & Reviews | Enamel Microscopic Dentistry Mysuru{% endblock %}
+
+{% block content %}
+<!-- Hero Header -->
+<section class="bg-brand-navy py-16 text-center text-white border-b border-brand-deepBlue">
+  <div class="max-w-4xl mx-auto px-4 space-y-3">
+    <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-brand-deepBlue border border-brand-gold/30 text-brand-gold text-xs font-semibold uppercase tracking-wider">
+      PATIENT FEEDBACK
+    </div>
+    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold">
+      Patient Testimonials
+    </h1>
+    <p class="text-slate-300 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
+      Authentic reviews and clinical experiences from patients treated at Enamel Microscopic Dentistry in Mysuru.
+    </p>
+  </div>
+</section>
+
+<!-- Reviews Showcase -->
+<section class="py-16 bg-white min-h-[600px]">
+  <div class="max-w-7xl mx-auto px-4 sm:px-8">
+    
+    <!-- Trust Score Bar -->
+    <div class="mb-12 p-6 rounded-3xl bg-brand-ivory border border-brand-gold/30 flex flex-col sm:flex-row items-center justify-between gap-6">
+      <div class="flex items-center gap-4 text-center sm:text-left">
+        <div class="text-3xl font-serif font-bold text-brand-navy">5.0 / 5.0</div>
+        <div>
+          <div class="flex text-amber-400 text-lg">★★★★★</div>
+          <div class="text-xs text-slate-500 font-medium">Verified Google Reviews Attribution</div>
+        </div>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="https://maps.google.com/?q=Enamel+Microscopic+Dentistry+Vijaynagar+Mysuru" target="_blank" rel="noopener" class="px-5 py-2.5 rounded-xl bg-white border border-slate-300 hover:border-brand-gold text-xs font-semibold text-slate-700 flex items-center gap-2 transition">
+          <svg class="w-4 h-4" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/></svg>
+          Review on Google Maps
+        </a>
+        <a href="/book" class="px-5 py-2.5 rounded-xl bg-brand-navy hover:bg-brand-deepBlue text-white text-xs font-bold transition">
+          Book Appointment
+        </a>
+      </div>
+    </div>
+
+    <!-- Testimonials Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      
+      <!-- Review 1 -->
+      <div class="luxury-card p-6 sm:p-8 rounded-3xl space-y-4 flex flex-col justify-between">
+        <div class="space-y-3">
+          <div class="flex items-center justify-between">
+            <div class="flex text-amber-400 text-sm">★★★★★</div>
+            <span class="text-[10px] text-slate-400 font-medium">October 2026</span>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-700 italic leading-relaxed">
+            "I had severe pain in my upper molar that other clinics had struggled to identify. Dr. Shreyas placed the operating microscope over my tooth and immediately discovered a fine hairline crack and a hidden fourth canal. The entire root canal was painless and done with extreme delicacy."
+          </p>
+        </div>
+        <div class="pt-4 border-t border-slate-100 flex items-center justify-between text-xs">
+          <div>
+            <div class="font-bold text-brand-navy">Siddharth N.</div>
+            <div class="text-[11px] text-brand-goldDark font-semibold">Microscopic Root Canal</div>
+          </div>
+          <span class="text-[10px] font-semibold text-slate-400 bg-slate-100 px-2 py-0.5 rounded">Google Review</span>
+        </div>
+      </div>
+
+      <!-- Review 2 -->
+      <div class="luxury-card p-6 sm:p-8 rounded-3xl space-y-4 flex flex-col justify-between">
+        <div class="space-y-3">
+          <div class="flex items-center justify-between">
+            <div class="flex text-amber-400 text-sm">★★★★★</div>
+            <span class="text-[10px] text-slate-400 font-medium">September 2026</span>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-700 italic leading-relaxed">
+            "Dr. Rohit is a thorough and patient orthodontist. He walked me through the 3D outcome of my Invisalign clear aligners before we started. No hidden costs, completely transparent, and the results exceeded my expectations."
+          </p>
+        </div>
+        <div class="pt-4 border-t border-slate-100 flex items-center justify-between text-xs">
+          <div>
+            <div class="font-bold text-brand-navy">Ananya Rao</div>
+            <div class="text-[11px] text-brand-goldDark font-semibold">Invisalign Clear Aligners</div>
+          </div>
+          <span class="text-[10px] font-semibold text-slate-400 bg-slate-100 px-2 py-0.5 rounded">Google Review</span>
+        </div>
+      </div>
+
+      <!-- Review 3 -->
+      <div class="luxury-card p-6 sm:p-8 rounded-3xl space-y-4 flex flex-col justify-between">
+        <div class="space-y-3">
+          <div class="flex items-center justify-between">
+            <div class="flex text-amber-400 text-sm">★★★★★</div>
+            <span class="text-[10px] text-slate-400 font-medium">August 2026</span>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-700 italic leading-relaxed">
+            "I was nervous about dental implant surgery, but Dr. Jithin made the entire procedure seamless. The clinic hygiene and sterilization protocols are equal to an international hospital. The replacement tooth feels completely natural."
+          </p>
+        </div>
+        <div class="pt-4 border-t border-slate-100 flex items-center justify-between text-xs">
+          <div>
+            <div class="font-bold text-brand-navy">Rajesh Venkatesh</div>
+            <div class="text-[11px] text-brand-goldDark font-semibold">Dental Implant Restoration</div>
+          </div>
+          <span class="text-[10px] font-semibold text-slate-400 bg-slate-100 px-2 py-0.5 rounded">Google Review</span>
+        </div>
+      </div>
+
+      <!-- Review 4 -->
+      <div class="luxury-card p-6 sm:p-8 rounded-3xl space-y-4 flex flex-col justify-between">
+        <div class="space-y-3">
+          <div class="flex items-center justify-between">
+            <div class="flex text-amber-400 text-sm">★★★★★</div>
+            <span class="text-[10px] text-slate-400 font-medium">July 2026</span>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-700 italic leading-relaxed">
+            "Got porcelain veneers done on my front teeth for a chipped tooth and discoloration. Dr. Shreyas prepared the teeth with microscopic conservative technique so almost no healthy enamel was removed. My smile looks radiant and natural."
+          </p>
+        </div>
+        <div class="pt-4 border-t border-slate-100 flex items-center justify-between text-xs">
+          <div>
+            <div class="font-bold text-brand-navy">Pooja M.</div>
+            <div class="text-[11px] text-brand-goldDark font-semibold">Dental Veneers & Aesthetics</div>
+          </div>
+          <span class="text-[10px] font-semibold text-slate-400 bg-slate-100 px-2 py-0.5 rounded">Google Review</span>
+        </div>
+      </div>
+
+      <!-- Review 5 -->
+      <div class="luxury-card p-6 sm:p-8 rounded-3xl space-y-4 flex flex-col justify-between">
+        <div class="space-y-3">
+          <div class="flex items-center justify-between">
+            <div class="flex text-amber-400 text-sm">★★★★★</div>
+            <span class="text-[10px] text-slate-400 font-medium">June 2026</span>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-700 italic leading-relaxed">
+            "My 8-year-old was terrified of dental checkups until we visited Enamel. The gentle staff, calming environment, and painless cleaning made my child feel completely comfortable. Highly recommended for families."
+          </p>
+        </div>
+        <div class="pt-4 border-t border-slate-100 flex items-center justify-between text-xs">
+          <div>
+            <div class="font-bold text-brand-navy">Meera Chandrashekar</div>
+            <div class="text-[11px] text-brand-goldDark font-semibold">Pediatric Dental Care</div>
+          </div>
+          <span class="text-[10px] font-semibold text-slate-400 bg-slate-100 px-2 py-0.5 rounded">Google Review</span>
+        </div>
+      </div>
+
+      <!-- Review 6 -->
+      <div class="luxury-card p-6 sm:p-8 rounded-3xl space-y-4 flex flex-col justify-between">
+        <div class="space-y-3">
+          <div class="flex items-center justify-between">
+            <div class="flex text-amber-400 text-sm">★★★★★</div>
+            <span class="text-[10px] text-slate-400 font-medium">May 2026</span>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-700 italic leading-relaxed">
+            "I had an impacted wisdom tooth that was causing chronic headache and gum swelling. Dr. Jithin removed it piezosurgically with virtually no post-operative swelling or bruising. The follow-up care was exemplary."
+          </p>
+        </div>
+        <div class="pt-4 border-t border-slate-100 flex items-center justify-between text-xs">
+          <div>
+            <div class="font-bold text-brand-navy">Karthik Somanna</div>
+            <div class="text-[11px] text-brand-goldDark font-semibold">Wisdom Tooth Surgery</div>
+          </div>
+          <span class="text-[10px] font-semibold text-slate-400 bg-slate-100 px-2 py-0.5 rounded">Google Review</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Review attribution note -->
+    <div class="mt-12 text-center text-xs text-slate-400 max-w-lg mx-auto">
+      *Review excerpts collected from verified patient clinical follow-ups and public Google Business Profile feedback with patient consent.
+    </div>
+
+  </div>
+</section>
+{% endblock %}

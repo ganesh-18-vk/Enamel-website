@@ -1,0 +1,743 @@
+{% extends "base.html" %}
+
+{% block title %}Book an Appointment | Enamel Microscopic Dentistry Mysuru{% endblock %}
+
+{% block content %}
+<!-- Wizard Hero Banner -->
+<section class="bg-brand-navy py-12 text-center text-white border-b border-brand-deepBlue">
+  <div class="max-w-4xl mx-auto px-4 space-y-3">
+    <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-brand-deepBlue border border-brand-gold/30 text-brand-gold text-xs font-semibold uppercase tracking-wider">
+      ONLINE APPOINTMENT SCHEDULER
+    </div>
+    <h1 class="text-3xl sm:text-4xl font-serif font-bold">
+      Book Your Dental Consultation
+    </h1>
+    <p class="text-slate-300 text-xs sm:text-sm max-w-xl mx-auto">
+      Experience precision microscopic care. Select your treatment and doctor below to view real-time appointment availability.
+    </p>
+  </div>
+</section>
+
+<!-- Stepper Container -->
+<section class="py-12 bg-brand-ivory min-h-[700px]">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6">
+    
+    <!-- Progress Indicator -->
+    <div class="mb-10 bg-white p-4 sm:p-6 rounded-2xl border border-slate-200 shadow-sm" id="stepperNav">
+      <div class="flex items-center justify-between text-xs">
+        
+        <div class="step-item flex items-center gap-2 font-bold text-brand-navy" data-step="1">
+          <span class="step-circle w-7 h-7 rounded-full bg-brand-navy text-brand-gold flex items-center justify-center text-xs">1</span>
+          <span class="hidden sm:inline">Treatment</span>
+        </div>
+        <div class="h-0.5 w-6 sm:w-12 bg-slate-200"></div>
+
+        <div class="step-item flex items-center gap-2 text-slate-400 font-medium" data-step="2">
+          <span class="step-circle w-7 h-7 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center text-xs">2</span>
+          <span class="hidden sm:inline">Doctor</span>
+        </div>
+        <div class="h-0.5 w-6 sm:w-12 bg-slate-200"></div>
+
+        <div class="step-item flex items-center gap-2 text-slate-400 font-medium" data-step="3">
+          <span class="step-circle w-7 h-7 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center text-xs">3</span>
+          <span class="hidden sm:inline">Date</span>
+        </div>
+        <div class="h-0.5 w-6 sm:w-12 bg-slate-200"></div>
+
+        <div class="step-item flex items-center gap-2 text-slate-400 font-medium" data-step="4">
+          <span class="step-circle w-7 h-7 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center text-xs">4</span>
+          <span class="hidden sm:inline">Time Slot</span>
+        </div>
+        <div class="h-0.5 w-6 sm:w-12 bg-slate-200"></div>
+
+        <div class="step-item flex items-center gap-2 text-slate-400 font-medium" data-step="5">
+          <span class="step-circle w-7 h-7 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center text-xs">5</span>
+          <span class="hidden sm:inline">Patient Info</span>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- MAIN FORM / WIZARD CONTAINER -->
+    <div class="bg-white rounded-3xl p-6 sm:p-10 border border-brand-gold/30 shadow-xl relative min-h-[460px]">
+
+      <!-- ================= STEP 1: SELECT TREATMENT ================= -->
+      <div id="step1" class="wizard-step space-y-6">
+        <div>
+          <h2 class="text-xl sm:text-2xl font-serif font-bold text-brand-navy">Step 1: Select Your Treatment or Concern</h2>
+          <p class="text-xs text-slate-500 mt-1">Choose the service you are consulting for. You can choose from all 14 clinical procedures.</p>
+        </div>
+
+        <!-- Search bar for treatments -->
+        <div class="relative">
+          <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2"></i>
+          <input type="text" id="wizardTreatmentSearch" placeholder="Type to filter treatments..." class="w-full pl-9 pr-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-xs focus:outline-none focus:border-brand-gold">
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-[360px] overflow-y-auto pr-1" id="wizardTreatmentGrid">
+          {% for t in treatments %}
+          <label class="treatment-option cursor-pointer p-3.5 rounded-xl border border-slate-200 hover:border-brand-gold/60 transition flex items-center justify-between gap-3 {% if preselect_treatment == t.slug %}border-brand-gold bg-brand-ivory{% endif %}" data-name="{{ t.name | lower }}">
+            <div class="flex items-center gap-3">
+              <input type="radio" name="treatmentRadio" value="{{ t.id }}" data-slug="{{ t.slug }}" data-name="{{ t.name }}" data-doc="{{ t.default_doctor_id }}" class="accent-brand-navy" {% if preselect_treatment == t.slug %}checked{% endif %}>
+              <div>
+                <div class="text-xs font-bold text-brand-navy">{{ t.name }}</div>
+                <div class="text-[10px] text-slate-500 font-medium">{{ t.category }} • ~{{ t.duration_minutes }}m</div>
+              </div>
+            </div>
+            <span class="text-xs font-semibold text-brand-goldDark">₹{{ t.consultation_fee }}</span>
+          </label>
+          {% endfor %}
+        </div>
+
+        <div class="pt-4 flex justify-end">
+          <button type="button" onclick="goToStep(2)" class="px-6 py-3 rounded-xl bg-brand-navy text-white text-xs font-bold uppercase tracking-wider hover:bg-brand-deepBlue transition shadow-md flex items-center gap-2">
+            Continue To Doctor <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- ================= STEP 2: SELECT DOCTOR ================= -->
+      <div id="step2" class="wizard-step hidden space-y-6">
+        <div>
+          <h2 class="text-xl sm:text-2xl font-serif font-bold text-brand-navy">Step 2: Select Your Consulting Doctor</h2>
+          <p class="text-xs text-slate-500 mt-1">Select an available specialist based on your treatment requirement.</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4" id="wizardDoctorsGrid">
+          {% for doc in doctors %}
+          <label class="doctor-option cursor-pointer p-4 rounded-2xl border border-slate-200 hover:border-brand-gold transition flex flex-col justify-between text-center space-y-3 relative {% if preselect_doctor == doc.id %}border-brand-gold bg-brand-ivory{% endif %}">
+            <input type="radio" name="doctorRadio" value="{{ doc.id }}" data-name="{{ doc.name }}" data-spec="{{ doc.specialization }}" class="absolute top-3 right-3 accent-brand-navy" {% if preselect_doctor == doc.id %}checked{% endif %}>
+            <div class="w-16 h-16 mx-auto rounded-full overflow-hidden bg-brand-navy">
+              <img src="{{ doc.photo_url }}" alt="{{ doc.name }}" class="w-full h-full object-cover">
+            </div>
+            <div>
+              <div class="font-serif font-bold text-sm text-brand-navy">{{ doc.name }}</div>
+              <div class="text-[10px] text-brand-goldDark font-semibold mt-0.5">{{ doc.title }}</div>
+              <div class="text-[10px] text-slate-400 mt-1">{{ doc.experience_years }}+ Yrs Experience</div>
+            </div>
+          </label>
+          {% endfor %}
+        </div>
+
+        <div class="pt-4 flex justify-between items-center">
+          <button type="button" onclick="goToStep(1)" class="px-5 py-2.5 rounded-xl border border-slate-200 text-xs font-semibold text-slate-600 hover:bg-slate-50 transition">
+            ← Back
+          </button>
+          <button type="button" onclick="goToStep(3)" class="px-6 py-3 rounded-xl bg-brand-navy text-white text-xs font-bold uppercase tracking-wider hover:bg-brand-deepBlue transition shadow-md flex items-center gap-2">
+            Continue To Date <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- ================= STEP 3: SELECT DATE ================= -->
+      <div id="step3" class="wizard-step hidden space-y-6">
+        <div>
+          <h2 class="text-xl sm:text-2xl font-serif font-bold text-brand-navy">Step 3: Choose Appointment Date</h2>
+          <p class="text-xs text-slate-500 mt-1">Operating days: Monday to Saturday. (Sundays unavailable).</p>
+        </div>
+
+        <!-- Custom Interactive Calendar -->
+        <div class="max-w-md mx-auto bg-slate-50 p-6 rounded-2xl border border-slate-200 space-y-4">
+          <div class="flex items-center justify-between">
+            <button type="button" onclick="changeMonth(-1)" class="p-2 rounded-lg hover:bg-white text-slate-600 transition">
+              <i data-lucide="chevron-left" class="w-5 h-5"></i>
+            </button>
+            <div id="calendarMonthYear" class="font-serif font-bold text-base text-brand-navy"></div>
+            <button type="button" onclick="changeMonth(1)" class="p-2 rounded-lg hover:bg-white text-slate-600 transition">
+              <i data-lucide="chevron-right" class="w-5 h-5"></i>
+            </button>
+          </div>
+
+          <!-- Days Header -->
+          <div class="grid grid-cols-7 text-center text-[11px] font-bold text-slate-400 uppercase py-1 border-b border-slate-200">
+            <span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span><span class="text-rose-400">Su</span>
+          </div>
+
+          <!-- Calendar Days Grid -->
+          <div class="grid grid-cols-7 gap-1.5 text-center text-xs" id="calendarGrid"></div>
+
+          <div class="flex items-center justify-center gap-4 text-[10px] text-slate-500 pt-2 border-t border-slate-200">
+            <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-brand-navy"></span> Selected</span>
+            <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-emerald-100 border border-emerald-400"></span> Available</span>
+            <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-slate-200"></span> Closed/Past</span>
+          </div>
+        </div>
+
+        <div class="pt-4 flex justify-between items-center">
+          <button type="button" onclick="goToStep(2)" class="px-5 py-2.5 rounded-xl border border-slate-200 text-xs font-semibold text-slate-600 hover:bg-slate-50 transition">
+            ← Back
+          </button>
+          <button type="button" onclick="validateDateAndProceed()" class="px-6 py-3 rounded-xl bg-brand-navy text-white text-xs font-bold uppercase tracking-wider hover:bg-brand-deepBlue transition shadow-md flex items-center gap-2">
+            View Available Slots <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- ================= STEP 4: SELECT TIME SLOT ================= -->
+      <div id="step4" class="wizard-step hidden space-y-6">
+        <div>
+          <h2 class="text-xl sm:text-2xl font-serif font-bold text-brand-navy">Step 4: Select Available Time Slot</h2>
+          <p class="text-xs text-slate-500 mt-1" id="slotDateLabel">Loading slots...</p>
+        </div>
+
+        <div id="slotLoading" class="text-center py-12 space-y-3">
+          <div class="w-8 h-8 border-4 border-brand-gold border-t-transparent rounded-full animate-spin mx-auto"></div>
+          <p class="text-xs text-slate-500">Checking doctor availability with backend database...</p>
+        </div>
+
+        <div id="slotError" class="hidden p-4 rounded-xl bg-rose-50 border border-rose-200 text-xs text-rose-700 text-center"></div>
+
+        <div id="slotsContainer" class="hidden space-y-6">
+          <!-- Morning Window: 10:00 AM - 2:00 PM -->
+          <div class="space-y-2">
+            <h4 class="text-xs uppercase tracking-wider font-bold text-brand-goldDark flex items-center gap-1.5">
+              <i data-lucide="sun" class="w-4 h-4 text-amber-500"></i> Morning Session (10:00 AM – 2:00 PM)
+            </h4>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5" id="morningSlotsGrid"></div>
+          </div>
+
+          <!-- Evening Window: 4:00 PM - 6:30 PM -->
+          <div class="space-y-2">
+            <h4 class="text-xs uppercase tracking-wider font-bold text-brand-goldDark flex items-center gap-1.5">
+              <i data-lucide="sunset" class="w-4 h-4 text-orange-500"></i> Evening Session (4:00 PM – 6:30 PM)
+            </h4>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5" id="eveningSlotsGrid"></div>
+          </div>
+        </div>
+
+        <div class="pt-4 flex justify-between items-center">
+          <button type="button" onclick="goToStep(3)" class="px-5 py-2.5 rounded-xl border border-slate-200 text-xs font-semibold text-slate-600 hover:bg-slate-50 transition">
+            ← Change Date
+          </button>
+          <button type="button" onclick="validateSlotAndProceed()" class="px-6 py-3 rounded-xl bg-brand-navy text-white text-xs font-bold uppercase tracking-wider hover:bg-brand-deepBlue transition shadow-md flex items-center gap-2">
+            Enter Patient Info <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- ================= STEP 5: PATIENT INFORMATION & CONSENT ================= -->
+      <div id="step5" class="wizard-step hidden space-y-6">
+        <div>
+          <h2 class="text-xl sm:text-2xl font-serif font-bold text-brand-navy">Step 5: Patient Details & Confirmation</h2>
+          <p class="text-xs text-slate-500 mt-1">Please provide the attendee details. Your booking will be saved securely in our clinic system.</p>
+        </div>
+
+        <!-- Booking Summary Card -->
+        <div class="p-4 rounded-2xl bg-brand-ivory border border-brand-gold/30 flex flex-wrap items-center justify-between gap-4 text-xs">
+          <div>
+            <span class="text-slate-400 block text-[10px]">SELECTED PROCEDURE</span>
+            <span class="font-bold text-brand-navy" id="summaryTreatment">Microscopic Root Canal</span>
+          </div>
+          <div>
+            <span class="text-slate-400 block text-[10px]">DOCTOR</span>
+            <span class="font-bold text-brand-navy" id="summaryDoctor">Dr. H S Shreyas</span>
+          </div>
+          <div>
+            <span class="text-slate-400 block text-[10px]">DATE & TIME</span>
+            <span class="font-bold text-brand-navy" id="summaryDateTime">2026-11-12 at 10:30 AM</span>
+          </div>
+        </div>
+
+        <form id="bookingForm" onsubmit="submitAppointment(event)" class="space-y-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">Full Name *</label>
+              <input type="text" id="patientName" required minlength="2" placeholder="e.g. Arjun Rao" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-xs focus:outline-none focus:border-brand-gold">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">Mobile Number (WhatsApp) *</label>
+              <input type="tel" id="patientPhone" required minlength="10" placeholder="e.g. +91 98450 12345" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-xs focus:outline-none focus:border-brand-gold">
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Email Address (Optional)</label>
+            <input type="email" id="patientEmail" placeholder="e.g. arjun.rao@example.com" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-xs focus:outline-none focus:border-brand-gold">
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Additional Notes / Symptoms (Optional)</label>
+            <textarea id="patientNotes" rows="2" placeholder="Describe symptoms, sensitivity, or previous treatment details..." class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-xs focus:outline-none focus:border-brand-gold"></textarea>
+          </div>
+
+          <!-- Consent Checkbox -->
+          <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+            <label class="flex items-start gap-2.5 cursor-pointer">
+              <input type="checkbox" id="consentCheck" required class="mt-0.5 accent-brand-navy">
+              <span class="text-[11px] text-slate-600 leading-relaxed">
+                I acknowledge the <a href="/cancellation-policy" target="_blank" class="text-brand-navy font-semibold underline">Cancellation Policy</a> and consent to clinic communications regarding this appointment via SMS and WhatsApp.
+              </span>
+            </label>
+          </div>
+
+          <div class="pt-4 flex justify-between items-center">
+            <button type="button" onclick="goToStep(4)" class="px-5 py-2.5 rounded-xl border border-slate-200 text-xs font-semibold text-slate-600 hover:bg-slate-50 transition">
+              ← Change Slot
+            </button>
+            <button type="submit" id="submitBtn" class="px-8 py-3.5 rounded-xl bg-gradient-to-r from-brand-goldLight via-brand-gold to-brand-goldDark text-brand-navy font-bold text-xs uppercase tracking-wider hover:brightness-110 transition shadow-xl shadow-brand-gold/20 flex items-center gap-2">
+              <span id="btnText">Confirm Appointment</span>
+              <div id="btnSpinner" class="hidden w-4 h-4 border-2 border-brand-navy border-t-transparent rounded-full animate-spin"></div>
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- ================= STEP 6: BOOKING CONFIRMATION SCREEN ================= -->
+      <div id="step6" class="wizard-step hidden space-y-6 text-center py-4">
+        <div class="w-16 h-16 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center text-3xl font-bold mx-auto border-4 border-emerald-50">
+          ✓
+        </div>
+        
+        <div>
+          <span class="px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-[11px] font-bold uppercase tracking-wider">
+            Booking Confirmed & Saved
+          </span>
+          <h2 class="text-2xl sm:text-3xl font-serif font-bold text-brand-navy mt-2">
+            We Look Forward To Welcoming You!
+          </h2>
+          <p class="text-xs text-slate-500 mt-1">
+            Your appointment has been registered in the Enamel Microscopic Dentistry database.
+          </p>
+        </div>
+
+        <!-- Booking Details Card -->
+        <div class="max-w-md mx-auto p-6 rounded-2xl bg-brand-ivory border border-brand-gold/30 shadow-md text-left space-y-3 text-xs">
+          <div class="flex items-center justify-between pb-3 border-b border-brand-gold/20">
+            <span class="text-slate-500 font-semibold">Booking Reference:</span>
+            <span class="font-mono font-bold text-base text-brand-navy" id="confRef">EMD-2026-XXXX</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-slate-500 font-medium">Patient Name:</span>
+            <span class="font-bold text-slate-800" id="confName">-</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-slate-500 font-medium">Doctor:</span>
+            <span class="font-bold text-slate-800" id="confDoctor">-</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-slate-500 font-medium">Treatment:</span>
+            <span class="font-bold text-slate-800" id="confTreatment">-</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-slate-500 font-medium">Date & Time:</span>
+            <span class="font-bold text-brand-goldDark" id="confDateTime">-</span>
+          </div>
+          <div class="pt-3 border-t border-brand-gold/20">
+            <span class="text-slate-500 font-medium block">Clinic Address:</span>
+            <span class="text-slate-700 font-medium block mt-0.5">#42, 2nd Cross, Mahajana Layout, Vijaynagar Main Road, Mysuru, Karnataka 570017</span>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="max-w-md mx-auto flex flex-col sm:flex-row gap-3 pt-2">
+          <a id="gCalBtn" href="#" target="_blank" rel="noopener" class="flex-1 py-3 px-4 rounded-xl bg-brand-navy text-white text-xs font-bold text-center flex items-center justify-center gap-2 hover:bg-brand-deepBlue transition shadow-sm">
+            <i data-lucide="calendar-plus" class="w-4 h-4 text-brand-gold"></i>
+            Add to Google Calendar
+          </a>
+          <a id="waConfBtn" href="#" target="_blank" rel="noopener" class="flex-1 py-3 px-4 rounded-xl bg-emerald-600 text-white text-xs font-bold text-center flex items-center justify-center gap-2 hover:bg-emerald-500 transition shadow-sm">
+            <i data-lucide="message-circle" class="w-4 h-4"></i>
+            WhatsApp Summary
+          </a>
+        </div>
+
+        <div class="pt-4 flex justify-center gap-4 text-xs">
+          <button type="button" onclick="window.print()" class="text-slate-500 hover:text-brand-navy underline">
+            Print Appointment Slip
+          </button>
+          <span class="text-slate-300">•</span>
+          <a href="/" class="text-brand-navy font-semibold hover:text-brand-gold">
+            Return to Homepage
+          </a>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+  let currentStep = 1;
+  let selectedTreatment = null;
+  let selectedDoctor = null;
+  let selectedDate = null;
+  let selectedSlot = null;
+
+  // Calendar State
+  let calCurrentDate = new Date();
+  // Ensure calendar starts from current month or today
+  let viewYear = calCurrentDate.getFullYear();
+  let viewMonth = calCurrentDate.getMonth();
+
+  document.addEventListener("DOMContentLoaded", () => {
+    // Check pre-selection
+    const trtRadio = document.querySelector('input[name="treatmentRadio"]:checked');
+    if (trtRadio) {
+      selectedTreatment = {
+        id: trtRadio.value,
+        name: trtRadio.dataset.name,
+        slug: trtRadio.dataset.slug,
+        defaultDoc: trtRadio.dataset.doc
+      };
+    }
+
+    const docRadio = document.querySelector('input[name="doctorRadio"]:checked');
+    if (docRadio) {
+      selectedDoctor = {
+        id: docRadio.value,
+        name: docRadio.dataset.name,
+        spec: docRadio.dataset.spec
+      };
+    }
+
+    renderCalendar();
+  });
+
+  // Step Switcher
+  function goToStep(step) {
+    if (step === 2) {
+      const trt = document.querySelector('input[name="treatmentRadio"]:checked');
+      if (!trt) {
+        showToast("Please choose a treatment to proceed.", "error");
+        return;
+      }
+      selectedTreatment = {
+        id: trt.value,
+        name: trt.dataset.name,
+        slug: trt.dataset.slug,
+        defaultDoc: trt.dataset.doc
+      };
+      
+      // Auto-select recommended doctor if none chosen
+      if (!selectedDoctor && selectedTreatment.defaultDoc) {
+        const autoDoc = document.querySelector(`input[name="doctorRadio"][value="${selectedTreatment.defaultDoc}"]`);
+        if (autoDoc) {
+          autoDoc.checked = true;
+          selectedDoctor = {
+            id: autoDoc.value,
+            name: autoDoc.dataset.name,
+            spec: autoDoc.dataset.spec
+          };
+        }
+      }
+    }
+
+    if (step === 3) {
+      const doc = document.querySelector('input[name="doctorRadio"]:checked');
+      if (!doc) {
+        showToast("Please select a doctor to proceed.", "error");
+        return;
+      }
+      selectedDoctor = {
+        id: doc.value,
+        name: doc.dataset.name,
+        spec: doc.dataset.spec
+      };
+    }
+
+    // Hide all steps
+    document.querySelectorAll('.wizard-step').forEach(el => el.classList.add('hidden'));
+    const target = document.getElementById(`step${step}`);
+    if (target) target.classList.remove('hidden');
+
+    currentStep = step;
+    updateStepperHeader(step);
+    window.scrollTo({ top: 180, behavior: 'smooth' });
+    lucide.createIcons();
+  }
+
+  function updateStepperHeader(step) {
+    document.querySelectorAll('.step-item').forEach(item => {
+      const s = parseInt(item.dataset.step);
+      const circle = item.querySelector('.step-circle');
+      if (s < step) {
+        item.className = 'step-item flex items-center gap-2 font-bold text-emerald-600';
+        circle.className = 'step-circle w-7 h-7 rounded-full bg-emerald-600 text-white flex items-center justify-center text-xs font-bold';
+        circle.innerHTML = '✓';
+      } else if (s === step) {
+        item.className = 'step-item flex items-center gap-2 font-bold text-brand-navy';
+        circle.className = 'step-circle w-7 h-7 rounded-full bg-brand-navy text-brand-gold flex items-center justify-center text-xs font-bold';
+        circle.innerHTML = s;
+      } else {
+        item.className = 'step-item flex items-center gap-2 text-slate-400 font-medium';
+        circle.className = 'step-circle w-7 h-7 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center text-xs';
+        circle.innerHTML = s;
+      }
+    });
+  }
+
+  // Treatment Search Filter inside Wizard
+  const trtSearch = document.getElementById('wizardTreatmentSearch');
+  if (trtSearch) {
+    trtSearch.addEventListener('input', (e) => {
+      const val = e.target.value.toLowerCase().trim();
+      document.querySelectorAll('#wizardTreatmentGrid .treatment-option').forEach(opt => {
+        const name = opt.dataset.name || '';
+        if (!val || name.includes(val)) {
+          opt.classList.remove('hidden');
+        } else {
+          opt.classList.add('hidden');
+        }
+      });
+    });
+  }
+
+  // Interactive Calendar Generation
+  function renderCalendar() {
+    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    document.getElementById('calendarMonthYear').innerText = `${monthNames[viewMonth]} ${viewYear}`;
+
+    const firstDayIndex = new Date(viewYear, viewMonth, 1).getDay(); // 0 is Sunday
+    // Adjust to Monday start: 0=Mo, 1=Tu, ..., 5=Sa, 6=Su
+    const startOffset = (firstDayIndex === 0) ? 6 : (firstDayIndex - 1);
+    const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
+
+    const grid = document.getElementById('calendarGrid');
+    grid.innerHTML = '';
+
+    // Empty lead cells
+    for (let i = 0; i < startOffset; i++) {
+      const empty = document.createElement('div');
+      empty.className = 'p-2 text-slate-300';
+      grid.appendChild(empty);
+    }
+
+    const today = new Date();
+    today.setHours(0,0,0,0);
+
+    for (let day = 1; day <= daysInMonth; day++) {
+      const dayDate = new Date(viewYear, viewMonth, day);
+      const isSunday = (dayDate.getDay() === 0);
+      const isPast = (dayDate < today);
+      const dateString = `${viewYear}-${String(viewMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.innerText = day;
+
+      if (isPast || isSunday) {
+        btn.disabled = true;
+        btn.className = `p-2.5 rounded-xl text-slate-300 cursor-not-allowed ${isSunday ? 'bg-rose-50/50 text-rose-300' : ''}`;
+        btn.title = isSunday ? 'Clinic closed on Sundays' : 'Past date';
+      } else {
+        const isSelected = (selectedDate === dateString);
+        btn.className = `p-2.5 rounded-xl font-semibold transition ${
+          isSelected 
+            ? 'bg-brand-navy text-brand-gold shadow-md scale-105' 
+            : 'bg-emerald-50/80 hover:bg-brand-navy hover:text-brand-gold text-slate-800 border border-emerald-200'
+        }`;
+        btn.onclick = () => {
+          selectedDate = dateString;
+          renderCalendar();
+        };
+      }
+
+      grid.appendChild(btn);
+    }
+  }
+
+  function changeMonth(offset) {
+    viewMonth += offset;
+    if (viewMonth < 0) {
+      viewMonth = 11;
+      viewYear--;
+    } else if (viewMonth > 11) {
+      viewMonth = 0;
+      viewYear++;
+    }
+    renderCalendar();
+  }
+
+  function validateDateAndProceed() {
+    if (!selectedDate) {
+      showToast("Please pick a calendar date to view slots.", "error");
+      return;
+    }
+    goToStep(4);
+    fetchAvailableSlots();
+  }
+
+  // Real-time slot availability from backend API
+  async function fetchAvailableSlots() {
+    const loading = document.getElementById('slotLoading');
+    const container = document.getElementById('slotsContainer');
+    const errorBox = document.getElementById('slotError');
+    const label = document.getElementById('slotDateLabel');
+    const morningGrid = document.getElementById('morningSlotsGrid');
+    const eveningGrid = document.getElementById('eveningSlotsGrid');
+
+    loading.classList.remove('hidden');
+    container.classList.add('hidden');
+    errorBox.classList.add('hidden');
+    morningGrid.innerHTML = '';
+    eveningGrid.innerHTML = '';
+
+    label.innerText = `Available slots for ${selectedDoctor.name} on ${selectedDate}:`;
+
+    try {
+      const res = await fetch(`/api/availability?doctor_id=${selectedDoctor.id}&date=${selectedDate}`);
+      const data = await res.json();
+      loading.classList.add('hidden');
+
+      if (!res.ok || !data.available) {
+        errorBox.classList.remove('hidden');
+        errorBox.innerText = data.reason || "No appointments are available on this date. Please select another date or doctor.";
+        return;
+      }
+
+      const slots = data.slots;
+      if (!slots || slots.length === 0) {
+        errorBox.classList.remove('hidden');
+        errorBox.innerText = "All slots are fully booked for this date. Please choose another date.";
+        return;
+      }
+
+      container.classList.remove('hidden');
+      selectedSlot = null;
+
+      slots.forEach(slot => {
+        const timeVal = slot.value; // "10:30"
+        const hour = parseInt(timeVal.split(':')[0], 10);
+        const isMorning = (hour < 14);
+
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'slot-btn p-3 rounded-xl border border-slate-200 hover:border-brand-gold bg-slate-50 text-xs font-semibold text-slate-800 transition text-center';
+        btn.innerText = slot.label;
+        btn.onclick = () => {
+          document.querySelectorAll('.slot-btn').forEach(b => {
+            b.className = 'slot-btn p-3 rounded-xl border border-slate-200 hover:border-brand-gold bg-slate-50 text-xs font-semibold text-slate-800 transition text-center';
+          });
+          btn.className = 'slot-btn p-3 rounded-xl border border-brand-navy bg-brand-navy text-brand-gold font-bold shadow-md text-xs transition text-center';
+          selectedSlot = slot;
+        };
+
+        if (isMorning) {
+          morningGrid.appendChild(btn);
+        } else {
+          eveningGrid.appendChild(btn);
+        }
+      });
+
+      if (morningGrid.children.length === 0) {
+        morningGrid.innerHTML = '<span class="text-xs text-slate-400 italic">No morning slots open.</span>';
+      }
+      if (eveningGrid.children.length === 0) {
+        eveningGrid.innerHTML = '<span class="text-xs text-slate-400 italic">No evening slots open.</span>';
+      }
+
+    } catch (err) {
+      loading.classList.add('hidden');
+      errorBox.classList.remove('hidden');
+      errorBox.innerText = "Failed to load availability. Please check your connection and try again.";
+    }
+  }
+
+  function validateSlotAndProceed() {
+    if (!selectedSlot) {
+      showToast("Please select an available time slot.", "error");
+      return;
+    }
+    // Update summary in step 5
+    document.getElementById('summaryTreatment').innerText = selectedTreatment.name;
+    document.getElementById('summaryDoctor').innerText = selectedDoctor.name;
+    document.getElementById('summaryDateTime').innerText = `${selectedDate} at ${selectedSlot.label}`;
+    goToStep(5);
+  }
+
+  // Submit appointment to backend with atomic validation
+  async function submitAppointment(e) {
+    e.preventDefault();
+    const name = document.getElementById('patientName').value.trim();
+    const phone = document.getElementById('patientPhone').value.trim();
+    const email = document.getElementById('patientEmail').value.trim();
+    const notes = document.getElementById('patientNotes').value.trim();
+    const consent = document.getElementById('consentCheck').checked;
+
+    if (!name || name.length < 2) {
+      showToast("Please enter a valid patient name.", "error");
+      return;
+    }
+    if (!phone || phone.length < 10) {
+      showToast("Please provide a valid 10-digit mobile number.", "error");
+      return;
+    }
+    if (!consent) {
+      showToast("You must acknowledge the clinic policies.", "error");
+      return;
+    }
+
+    const payload = {
+      patient_name: name,
+      patient_phone: phone,
+      patient_email: email || null,
+      treatment_id: parseInt(selectedTreatment.id, 10),
+      doctor_id: parseInt(selectedDoctor.id, 10),
+      appointment_date: selectedDate,
+      appointment_time: selectedSlot.value,
+      patient_notes: notes || null,
+      consent_acknowledged: true
+    };
+
+    const submitBtn = document.getElementById('submitBtn');
+    const btnText = document.getElementById('btnText');
+    const btnSpinner = document.getElementById('btnSpinner');
+
+    submitBtn.disabled = true;
+    btnText.innerText = "Securing Slot...";
+    btnSpinner.classList.remove('hidden');
+
+    try {
+      const response = await fetch('/api/appointments', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      const data = await response.json();
+
+      if (!response.ok || !data.success) {
+        showToast(data.detail || "Unable to confirm booking. Slot may have been taken.", "error");
+        submitBtn.disabled = false;
+        btnText.innerText = "Confirm Appointment";
+        btnSpinner.classList.add('hidden');
+        return;
+      }
+
+      // Success: populate step 6
+      const app = data.appointment;
+      document.getElementById('confRef').innerText = app.booking_ref;
+      document.getElementById('confName').innerText = app.patient_name;
+      document.getElementById('confDoctor').innerText = app.doctor_name;
+      document.getElementById('confTreatment').innerText = app.treatment_name;
+      document.getElementById('confDateTime').innerText = `${app.appointment_date} at ${app.formatted_time}`;
+
+      // Set up Google Calendar URL
+      const startIso = `${app.appointment_date.replace(/-/g, '')}T${app.appointment_time.replace(/:/g, '')}00`;
+      const endHour = String(parseInt(app.appointment_time.split(':')[0], 10) + 1).padStart(2, '0');
+      const endIso = `${app.appointment_date.replace(/-/g, '')}T${endHour}${app.appointment_time.split(':')[1]}00`;
+      const gcalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent('Dental Appointment - Enamel Microscopic Dentistry')}&dates=${startIso}/${endIso}&details=${encodeURIComponent('Reference: ' + app.booking_ref + '\nDoctor: ' + app.doctor_name + '\nTreatment: ' + app.treatment_name)}&location=${encodeURIComponent(app.clinic_address)}`;
+      document.getElementById('gCalBtn').href = gcalUrl;
+
+      // Set up WhatsApp Confirmation URL
+      const waMsg = `Hello Enamel Microscopic Dentistry, I have confirmed my appointment!\n\nReference: ${app.booking_ref}\nPatient: ${app.patient_name}\nDoctor: ${app.doctor_name}\nTreatment: ${app.treatment_name}\nDate: ${app.appointment_date}\nTime: ${app.formatted_time}`;
+      document.getElementById('waConfBtn').href = `https://wa.me/918867374949?text=${encodeURIComponent(waMsg)}`;
+
+      // Hide Stepper and reveal step 6
+      document.querySelectorAll('.wizard-step').forEach(el => el.classList.add('hidden'));
+      document.getElementById('step6').classList.remove('hidden');
+      document.getElementById('stepperNav').classList.add('hidden');
+      window.scrollTo({ top: 150, behavior: 'smooth' });
+
+      showToast("Appointment confirmed successfully!", "success");
+
+    } catch (err) {
+      showToast("Network error while submitting booking. Please try again.", "error");
+      submitBtn.disabled = false;
+      btnText.innerText = "Confirm Appointment";
+      btnSpinner.classList.add('hidden');
+    }
+  }
+</script>
+{% endblock %}

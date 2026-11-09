@@ -1,0 +1,21 @@
+# Python bytecode & cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+
+# Environments
+.env
+.venv/
+env/
+venv/
+ENV/
+
+# Distribution build output (generated during netlify build)
+# Note: we can keep or omit dist in git, let Netlify build it via `python build_static.py`
+dist/
+
+# OS metadata
+.DS_Store
+Thumbs.db

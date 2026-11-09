@@ -1,0 +1,797 @@
+{% extends "base.html" %}
+
+{% block title %}Clinic Administration Dashboard | Enamel Microscopic Dentistry{% endblock %}
+
+{% block content %}
+<div class="bg-slate-100 min-h-screen pb-16">
+  
+  <!-- Dashboard Top Bar -->
+  <div class="bg-brand-darkNavy text-white py-4 px-4 sm:px-8 border-b border-brand-deepBlue sticky top-20 z-30 shadow-md">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+      
+      <div class="flex items-center gap-3">
+        <span class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span>
+        <div>
+          <h1 class="text-base sm:text-lg font-serif font-bold text-white">Enamel Clinical Administration</h1>
+          <span class="text-[11px] text-brand-goldLight">Authenticated as: <strong class="text-white">{{ admin_user.sub }}</strong> ({{ admin_user.role | upper }})</span>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <a href="/" target="_blank" class="px-3.5 py-1.5 rounded-lg bg-brand-deepBlue hover:bg-brand-navy text-xs text-slate-300 font-medium transition flex items-center gap-1.5 border border-slate-700">
+          <i data-lucide="external-link" class="w-3.5 h-3.5"></i> View Public Site
+        </a>
+        <button onclick="adminLogout()" class="px-3.5 py-1.5 rounded-lg bg-rose-950/80 hover:bg-rose-900 text-rose-200 text-xs font-semibold transition border border-rose-800 flex items-center gap-1.5">
+          <i data-lucide="log-out" class="w-3.5 h-3.5"></i> Sign Out
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Dashboard Navigation Tabs -->
+  <div class="bg-white border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-8">
+      <div class="flex items-center gap-2 overflow-x-auto no-scrollbar py-2" id="adminTabs">
+        <button onclick="switchAdminTab('overview')" class="admin-tab-btn px-4 py-2 rounded-xl text-xs font-bold transition bg-brand-navy text-white shadow-sm" data-tab="overview">
+          <i data-lucide="layout-dashboard" class="w-3.5 h-3.5 inline mr-1"></i> Overview
+        </button>
+        <button onclick="switchAdminTab('appointments')" class="admin-tab-btn px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:bg-slate-100 transition" data-tab="appointments">
+          <i data-lucide="calendar" class="w-3.5 h-3.5 inline mr-1"></i> Appointments
+        </button>
+        <button onclick="switchAdminTab('doctors')" class="admin-tab-btn px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:bg-slate-100 transition" data-tab="doctors">
+          <i data-lucide="users" class="w-3.5 h-3.5 inline mr-1"></i> Doctors ({{ doctors | length }})
+        </button>
+        <button onclick="switchAdminTab('treatments')" class="admin-tab-btn px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:bg-slate-100 transition" data-tab="treatments">
+          <i data-lucide="sparkles" class="w-3.5 h-3.5 inline mr-1"></i> Treatments ({{ treatments | length }})
+        </button>
+        <button onclick="switchAdminTab('schedule')" class="admin-tab-btn px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:bg-slate-100 transition" data-tab="schedule">
+          <i data-lucide="clock" class="w-3.5 h-3.5 inline mr-1"></i> Schedule & Blocks
+        </button>
+        <button onclick="switchAdminTab('enquiries')" class="admin-tab-btn px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:bg-slate-100 transition" data-tab="enquiries">
+          <i data-lucide="inbox" class="w-3.5 h-3.5 inline mr-1"></i> Enquiries
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-8 pt-8">
+    
+    <!-- ================= 1. TAB: OVERVIEW ================= -->
+    <div id="tab-overview" class="admin-tab-content space-y-8">
+      
+      <!-- KPI Metric Cards -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4" id="kpiCards">
+        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-1">
+          <span class="text-[11px] font-bold text-slate-400 uppercase">Today's Visits</span>
+          <div class="text-2xl font-serif font-bold text-brand-navy" id="kpiToday">-</div>
+          <span class="text-[10px] text-emerald-600 font-semibold">Active for today</span>
+        </div>
+        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-1">
+          <span class="text-[11px] font-bold text-slate-400 uppercase">Upcoming</span>
+          <div class="text-2xl font-serif font-bold text-brand-goldDark" id="kpiUpcoming">-</div>
+          <span class="text-[10px] text-slate-500 font-medium">Future confirmed</span>
+        </div>
+        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-1">
+          <span class="text-[11px] font-bold text-slate-400 uppercase">Pending Action</span>
+          <div class="text-2xl font-serif font-bold text-amber-600" id="kpiPending">-</div>
+          <span class="text-[10px] text-amber-700 font-medium">Awaiting check-in</span>
+        </div>
+        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-1">
+          <span class="text-[11px] font-bold text-slate-400 uppercase">Total Bookings</span>
+          <div class="text-2xl font-serif font-bold text-slate-800" id="kpiTotal">-</div>
+          <span class="text-[10px] text-slate-500 font-medium">On clinical database</span>
+        </div>
+        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-1">
+          <span class="text-[11px] font-bold text-slate-400 uppercase">Cancelled</span>
+          <div class="text-2xl font-serif font-bold text-slate-400" id="kpiCancelled">-</div>
+          <span class="text-[10px] text-rose-500 font-medium">Cancelled slots</span>
+        </div>
+      </div>
+
+      <!-- Quick Actions & Recent Bookings -->
+      <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-4">
+        <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+          <div>
+            <h3 class="font-serif font-bold text-lg text-brand-navy">Recent Clinical Bookings</h3>
+            <p class="text-xs text-slate-500">Latest registrations from the online booking engine</p>
+          </div>
+          <button onclick="switchAdminTab('appointments')" class="text-xs font-bold text-brand-goldDark hover:underline">
+            View All Bookings →
+          </button>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-slate-50 text-slate-500 uppercase text-[10px] font-bold border-y border-slate-200">
+              <tr>
+                <th class="py-3 px-4">Ref #</th>
+                <th class="py-3 px-4">Patient</th>
+                <th class="py-3 px-4">Doctor</th>
+                <th class="py-3 px-4">Treatment</th>
+                <th class="py-3 px-4">Date & Time</th>
+                <th class="py-3 px-4">Status</th>
+                <th class="py-3 px-4 text-right">Action</th>
+              </tr>
+            </thead>
+            <tbody id="recentAppointmentsBody" class="divide-y divide-slate-100">
+              <tr>
+                <td colspan="7" class="py-6 text-center text-slate-400">Loading overview data...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ================= 2. TAB: APPOINTMENT MANAGEMENT ================= -->
+    <div id="tab-appointments" class="admin-tab-content hidden space-y-6">
+      
+      <!-- Filter Bar -->
+      <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
+          <!-- Search input -->
+          <div>
+            <label class="block text-[10px] font-bold uppercase text-slate-400 mb-1">Search Patient / Ref</label>
+            <input type="text" id="appFilterSearch" placeholder="Name, phone, or EMD-..." class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:outline-none focus:border-brand-gold">
+          </div>
+          <!-- Date Filter -->
+          <div>
+            <label class="block text-[10px] font-bold uppercase text-slate-400 mb-1">Filter by Date</label>
+            <input type="date" id="appFilterDate" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:outline-none focus:border-brand-gold">
+          </div>
+          <!-- Doctor Filter -->
+          <div>
+            <label class="block text-[10px] font-bold uppercase text-slate-400 mb-1">Doctor</label>
+            <select id="appFilterDoctor" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs bg-white focus:outline-none focus:border-brand-gold">
+              <option value="">All Doctors</option>
+              {% for d in doctors %}
+              <option value="{{ d.id }}">{{ d.name }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <!-- Treatment Filter -->
+          <div>
+            <label class="block text-[10px] font-bold uppercase text-slate-400 mb-1">Treatment</label>
+            <select id="appFilterTreatment" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs bg-white focus:outline-none focus:border-brand-gold">
+              <option value="">All Treatments</option>
+              {% for t in treatments %}
+              <option value="{{ t.id }}">{{ t.name }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <!-- Status Filter -->
+          <div>
+            <label class="block text-[10px] font-bold uppercase text-slate-400 mb-1">Status</label>
+            <select id="appFilterStatus" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs bg-white focus:outline-none focus:border-brand-gold">
+              <option value="">All Statuses</option>
+              <option value="Confirmed">Confirmed</option>
+              <option value="Pending">Pending</option>
+              <option value="Completed">Completed</option>
+              <option value="Rescheduled">Rescheduled</option>
+              <option value="Cancelled">Cancelled</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="flex justify-between items-center pt-2 border-t border-slate-100 text-xs">
+          <span class="text-slate-500 font-medium" id="appointmentsCountLabel">Showing bookings</span>
+          <button onclick="resetAppointmentFilters()" class="text-xs font-semibold text-slate-500 hover:text-brand-navy underline">
+            Reset Filters
+          </button>
+        </div>
+      </div>
+
+      <!-- Main Appointments Table -->
+      <div class="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-slate-50 text-slate-500 uppercase text-[10px] font-bold border-b border-slate-200">
+              <tr>
+                <th class="py-3.5 px-4">Ref #</th>
+                <th class="py-3.5 px-4">Patient Details</th>
+                <th class="py-3.5 px-4">Doctor</th>
+                <th class="py-3.5 px-4">Treatment</th>
+                <th class="py-3.5 px-4">Date & Time</th>
+                <th class="py-3.5 px-4">Status</th>
+                <th class="py-3.5 px-4 text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="appointmentsTableBody" class="divide-y divide-slate-100">
+              <tr>
+                <td colspan="7" class="py-8 text-center text-slate-400">Loading appointments...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ================= 3. TAB: DOCTOR MANAGEMENT ================= -->
+    <div id="tab-doctors" class="admin-tab-content hidden space-y-6">
+      <div class="flex items-center justify-between pb-2 border-b border-slate-200">
+        <div>
+          <h2 class="font-serif font-bold text-xl text-brand-navy">Doctor & Specialist Profiles</h2>
+          <p class="text-xs text-slate-500">Configure qualifications, bios, and active status.</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {% for doc in doctors %}
+        <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm space-y-4">
+          <div class="flex items-center gap-4">
+            <img src="{{ doc.photo_url }}" alt="{{ doc.name }}" class="w-16 h-16 rounded-2xl object-cover bg-brand-navy">
+            <div>
+              <h3 class="font-serif font-bold text-base text-brand-navy">{{ doc.name }}</h3>
+              <p class="text-xs text-brand-goldDark font-semibold">{{ doc.title }}</p>
+              <span class="inline-block px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-bold mt-1">
+                Active Consultant
+              </span>
+            </div>
+          </div>
+          <div class="space-y-1.5 text-xs text-slate-600">
+            <p><strong>Qualifications:</strong> {{ doc.qualifications }}</p>
+            <p><strong>Experience:</strong> {{ doc.experience_years }} Years</p>
+            <p><strong>Speciality:</strong> {{ doc.specialization }}</p>
+          </div>
+          <div class="pt-2">
+            <a href="/doctors" target="_blank" class="w-full block py-2 rounded-xl border border-slate-200 text-center text-xs font-semibold text-slate-700 hover:bg-slate-50 transition">
+              View Public Card →
+            </a>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- ================= 4. TAB: TREATMENT MANAGEMENT ================= -->
+    <div id="tab-treatments" class="admin-tab-content hidden space-y-6">
+      <div class="flex items-center justify-between pb-2 border-b border-slate-200">
+        <div>
+          <h2 class="font-serif font-bold text-xl text-brand-navy">Treatment Catalog & Pricing</h2>
+          <p class="text-xs text-slate-500">All 14 clinical dental procedures managed on the platform.</p>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-slate-50 text-slate-500 uppercase text-[10px] font-bold border-b border-slate-200">
+              <tr>
+                <th class="py-3 px-4">Treatment Name</th>
+                <th class="py-3 px-4">Category</th>
+                <th class="py-3 px-4">Duration</th>
+                <th class="py-3 px-4">Fee (₹)</th>
+                <th class="py-3 px-4">Default Doctor</th>
+                <th class="py-3 px-4 text-right">View Detail</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
+              {% for trt in treatments %}
+              <tr class="hover:bg-slate-50/50">
+                <td class="py-3 px-4 font-bold text-brand-navy">{{ trt.name }}</td>
+                <td class="py-3 px-4">
+                  <span class="px-2 py-0.5 rounded bg-slate-100 text-[10px] font-semibold text-slate-600">{{ trt.category }}</span>
+                </td>
+                <td class="py-3 px-4 text-slate-600">~{{ trt.duration_minutes }} mins</td>
+                <td class="py-3 px-4 font-semibold text-slate-900">₹{{ trt.consultation_fee }}</td>
+                <td class="py-3 px-4 text-slate-600">{{ trt.default_doctor_name or "Dr. H S Shreyas" }}</td>
+                <td class="py-3 px-4 text-right">
+                  <a href="/treatments/{{ trt.slug }}" target="_blank" class="text-brand-goldDark font-bold hover:underline">
+                    Page ↗
+                  </a>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= 5. TAB: SCHEDULE & BLOCKED DATES ================= -->
+    <div id="tab-schedule" class="admin-tab-content hidden space-y-8">
+      
+      <!-- Operating Hours Table -->
+      <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm space-y-4">
+        <div>
+          <h2 class="font-serif font-bold text-lg text-brand-navy">Weekly Operating Hours</h2>
+          <p class="text-xs text-slate-500">Configured Monday–Saturday operating schedule (10 AM–2 PM & 4 PM–6:30 PM).</p>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-slate-50 text-slate-500 uppercase text-[10px] font-bold border-y border-slate-200">
+              <tr>
+                <th class="py-3 px-4">Day</th>
+                <th class="py-3 px-4">Status</th>
+                <th class="py-3 px-4">Morning Session</th>
+                <th class="py-3 px-4">Break (Lunch)</th>
+                <th class="py-3 px-4">Evening Session</th>
+                <th class="py-3 px-4">Slot Size</th>
+              </tr>
+            </thead>
+            <tbody id="scheduleTableBody" class="divide-y divide-slate-100">
+              <tr><td colspan="6" class="py-4 text-center text-slate-400">Loading schedule...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Blocked Dates & Leave Manager -->
+      <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm space-y-6">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div>
+            <h2 class="font-serif font-bold text-lg text-brand-navy">Blocked Dates & Clinic Holidays</h2>
+            <p class="text-xs text-slate-500">Block clinic-wide dates or doctor-specific leave.</p>
+          </div>
+        </div>
+
+        <!-- Add Block Date Form -->
+        <form onsubmit="addBlockDate(event)" class="grid grid-cols-1 sm:grid-cols-4 gap-3 p-4 rounded-2xl bg-slate-50 border border-slate-200">
+          <div>
+            <label class="block text-[10px] font-bold uppercase text-slate-400 mb-1">Date *</label>
+            <input type="date" id="blockDateInput" required class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs bg-white">
+          </div>
+          <div>
+            <label class="block text-[10px] font-bold uppercase text-slate-400 mb-1">Doctor (Leave)</label>
+            <select id="blockDoctorSelect" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs bg-white">
+              <option value="">All Doctors (Clinic Closed)</option>
+              {% for d in doctors %}
+              <option value="{{ d.id }}">{{ d.name }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div>
+            <label class="block text-[10px] font-bold uppercase text-slate-400 mb-1">Reason / Holiday Name</label>
+            <input type="text" id="blockReasonInput" placeholder="e.g. Festival Holiday" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs bg-white">
+          </div>
+          <div class="flex items-end">
+            <button type="submit" class="w-full py-2.5 rounded-xl bg-brand-navy text-white text-xs font-bold uppercase tracking-wider hover:bg-brand-deepBlue transition shadow-sm">
+              Block Date
+            </button>
+          </div>
+        </form>
+
+        <!-- Blocked Dates List -->
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-slate-50 text-slate-500 uppercase text-[10px] font-bold border-y border-slate-200">
+              <tr>
+                <th class="py-2.5 px-4">Date</th>
+                <th class="py-2.5 px-4">Applies To</th>
+                <th class="py-2.5 px-4">Reason</th>
+                <th class="py-2.5 px-4 text-right">Action</th>
+              </tr>
+            </thead>
+            <tbody id="blockedDatesBody" class="divide-y divide-slate-100">
+              <tr><td colspan="4" class="py-4 text-center text-slate-400">Loading blocked dates...</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- ================= 6. TAB: PATIENT ENQUIRIES ================= -->
+    <div id="tab-enquiries" class="admin-tab-content hidden space-y-6">
+      <div class="flex items-center justify-between pb-2 border-b border-slate-200">
+        <div>
+          <h2 class="font-serif font-bold text-xl text-brand-navy">Patient Inquiries</h2>
+          <p class="text-xs text-slate-500">Messages submitted through the contact page inquiry form.</p>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-slate-50 text-slate-500 uppercase text-[10px] font-bold border-b border-slate-200">
+              <tr>
+                <th class="py-3 px-4">Date</th>
+                <th class="py-3 px-4">Patient Name</th>
+                <th class="py-3 px-4">Contact</th>
+                <th class="py-3 px-4">Treatment Interest</th>
+                <th class="py-3 px-4">Message</th>
+                <th class="py-3 px-4 text-right">Status</th>
+              </tr>
+            </thead>
+            <tbody id="enquiriesTableBody" class="divide-y divide-slate-100">
+              <tr><td colspan="6" class="py-6 text-center text-slate-400">Loading inquiries...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- RESCHEDULE MODAL -->
+<div id="rescheduleModal" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden flex items-center justify-center p-4">
+  <div class="max-w-md w-full bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-2xl space-y-4">
+    <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+      <h3 class="font-serif font-bold text-base text-brand-navy">Reschedule Appointment</h3>
+      <button onclick="closeRescheduleModal()" class="text-slate-400 hover:text-slate-700">✕</button>
+    </div>
+
+    <form onsubmit="submitReschedule(event)" class="space-y-3 text-xs">
+      <input type="hidden" id="reschedAppId">
+      <div>
+        <label class="block font-bold text-slate-700 mb-1">New Date *</label>
+        <input type="date" id="reschedDate" required class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs">
+      </div>
+      <div>
+        <label class="block font-bold text-slate-700 mb-1">New Time Slot (HH:MM) *</label>
+        <input type="text" id="reschedTime" required placeholder="e.g. 11:30 or 16:30" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs">
+      </div>
+      <div>
+        <label class="block font-bold text-slate-700 mb-1">Reason for Rescheduling</label>
+        <textarea id="reschedReason" rows="2" placeholder="e.g. Patient requested morning slot" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs"></textarea>
+      </div>
+
+      <div class="pt-2 flex justify-end gap-2">
+        <button type="button" onclick="closeRescheduleModal()" class="px-4 py-2 rounded-xl border border-slate-200 text-slate-600">Cancel</button>
+        <button type="submit" class="px-5 py-2 rounded-xl bg-brand-navy text-white font-bold">Save Reschedule</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+  let currentAdminTab = 'overview';
+
+  function switchAdminTab(tab) {
+    currentAdminTab = tab;
+    document.querySelectorAll('.admin-tab-btn').forEach(btn => {
+      if (btn.dataset.tab === tab) {
+        btn.className = 'admin-tab-btn px-4 py-2 rounded-xl text-xs font-bold transition bg-brand-navy text-white shadow-sm';
+      } else {
+        btn.className = 'admin-tab-btn px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:bg-slate-100 transition';
+      }
+    });
+
+    document.querySelectorAll('.admin-tab-content').forEach(c => c.classList.add('hidden'));
+    const target = document.getElementById(`tab-${tab}`);
+    if (target) target.classList.remove('hidden');
+
+    if (tab === 'overview') loadOverview();
+    if (tab === 'appointments') loadAppointments();
+    if (tab === 'schedule') loadScheduleAndBlocks();
+    if (tab === 'enquiries') loadEnquiries();
+    lucide.createIcons();
+  }
+
+  // Admin Logout
+  async function adminLogout() {
+    await fetch('/api/admin/logout', { method: 'POST' });
+    window.location.href = '/admin/login';
+  }
+
+  // Load Overview Data
+  async function loadOverview() {
+    try {
+      const res = await fetch('/api/admin/overview');
+      if (!res.ok) {
+        window.location.href = '/admin/login';
+        return;
+      }
+      const data = await res.json();
+      document.getElementById('kpiToday').innerText = data.today_appointments;
+      document.getElementById('kpiUpcoming').innerText = data.upcoming_appointments;
+      document.getElementById('kpiPending').innerText = data.pending_requests;
+      document.getElementById('kpiTotal').innerText = data.total_bookings;
+      document.getElementById('kpiCancelled').innerText = data.cancelled_count;
+
+      const body = document.getElementById('recentAppointmentsBody');
+      body.innerHTML = '';
+      if (!data.recent_appointments || data.recent_appointments.length === 0) {
+        body.innerHTML = '<tr><td colspan="7" class="py-6 text-center text-slate-400">No appointments recorded yet.</td></tr>';
+        return;
+      }
+
+      data.recent_appointments.forEach(app => {
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-slate-50/50';
+        tr.innerHTML = `
+          <td class="py-3 px-4 font-mono font-bold text-brand-navy">${app.booking_ref}</td>
+          <td class="py-3 px-4">
+            <div class="font-bold text-slate-800">${app.patient_name}</div>
+            <div class="text-[10px] text-slate-400">${app.patient_phone}</div>
+          </td>
+          <td class="py-3 px-4 text-slate-700">${app.doctor_name}</td>
+          <td class="py-3 px-4 text-slate-700">${app.treatment_name}</td>
+          <td class="py-3 px-4 font-semibold text-slate-900">${app.appointment_date} at ${app.appointment_time}</td>
+          <td class="py-3 px-4">${renderStatusBadge(app.status)}</td>
+          <td class="py-3 px-4 text-right">
+            <button onclick="switchAdminTab('appointments')" class="text-brand-goldDark hover:underline font-bold text-xs">Manage</button>
+          </td>
+        `;
+        body.appendChild(tr);
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  function renderStatusBadge(st) {
+    if (st === 'Confirmed') return '<span class="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-bold">Confirmed</span>';
+    if (st === 'Pending') return '<span class="px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 text-[10px] font-bold">Pending</span>';
+    if (st === 'Completed') return '<span class="px-2 py-0.5 rounded-full bg-blue-100 text-blue-800 text-[10px] font-bold">Completed</span>';
+    if (st === 'Rescheduled') return '<span class="px-2 py-0.5 rounded-full bg-purple-100 text-purple-800 text-[10px] font-bold">Rescheduled</span>';
+    return '<span class="px-2 py-0.5 rounded-full bg-slate-200 text-slate-600 text-[10px] font-bold">' + st + '</span>';
+  }
+
+  // Load Appointments with Filters
+  async function loadAppointments() {
+    const s = document.getElementById('appFilterSearch').value.trim();
+    const d = document.getElementById('appFilterDate').value;
+    const doc = document.getElementById('appFilterDoctor').value;
+    const trt = document.getElementById('appFilterTreatment').value;
+    const st = document.getElementById('appFilterStatus').value;
+
+    let url = '/api/admin/appointments?';
+    if (s) url += `search=${encodeURIComponent(s)}&`;
+    if (d) url += `date=${encodeURIComponent(d)}&`;
+    if (doc) url += `doctor_id=${encodeURIComponent(doc)}&`;
+    if (trt) url += `treatment_id=${encodeURIComponent(trt)}&`;
+    if (st) url += `status=${encodeURIComponent(st)}&`;
+
+    const body = document.getElementById('appointmentsTableBody');
+    body.innerHTML = '<tr><td colspan="7" class="py-8 text-center text-slate-400">Filtering appointments...</td></tr>';
+
+    try {
+      const res = await fetch(url);
+      const data = await res.json();
+      body.innerHTML = '';
+
+      document.getElementById('appointmentsCountLabel').innerText = `Found ${data.total} appointment(s)`;
+
+      if (!data.appointments || data.appointments.length === 0) {
+        body.innerHTML = '<tr><td colspan="7" class="py-8 text-center text-slate-400">No appointments matched your search filter.</td></tr>';
+        return;
+      }
+
+      data.appointments.forEach(app => {
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-slate-50/50';
+        tr.innerHTML = `
+          <td class="py-3 px-4 font-mono font-bold text-brand-navy">${app.booking_ref}</td>
+          <td class="py-3 px-4">
+            <div class="font-bold text-slate-800">${app.patient_name}</div>
+            <div class="text-[11px] text-slate-500">${app.patient_phone}</div>
+            ${app.patient_notes ? `<div class="text-[10px] text-slate-400 italic mt-0.5">Note: ${app.patient_notes}</div>` : ''}
+          </td>
+          <td class="py-3 px-4 text-slate-700">${app.doctor_name}</td>
+          <td class="py-3 px-4 text-slate-700">${app.treatment_name}</td>
+          <td class="py-3 px-4 font-semibold text-slate-900">${app.appointment_date} <br><span class="text-[11px] text-brand-goldDark">${app.formatted_time}</span></td>
+          <td class="py-3 px-4">${renderStatusBadge(app.status)}</td>
+          <td class="py-3 px-4 text-right space-x-1">
+            ${app.status !== 'Confirmed' ? `<button onclick="updateAppStatus(${app.id}, 'Confirmed')" class="px-2 py-1 rounded bg-emerald-100 text-emerald-800 text-[10px] font-bold hover:bg-emerald-200">Confirm</button>` : ''}
+            ${app.status !== 'Completed' ? `<button onclick="updateAppStatus(${app.id}, 'Completed')" class="px-2 py-1 rounded bg-blue-100 text-blue-800 text-[10px] font-bold hover:bg-blue-200">Complete</button>` : ''}
+            <button onclick="openRescheduleModal(${app.id}, '${app.appointment_date}', '${app.appointment_time}')" class="px-2 py-1 rounded bg-purple-100 text-purple-800 text-[10px] font-bold hover:bg-purple-200">Reschedule</button>
+            ${app.status !== 'Cancelled' ? `<button onclick="updateAppStatus(${app.id}, 'Cancelled')" class="px-2 py-1 rounded bg-rose-100 text-rose-800 text-[10px] font-bold hover:bg-rose-200">Cancel</button>` : ''}
+          </td>
+        `;
+        body.appendChild(tr);
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  function resetAppointmentFilters() {
+    document.getElementById('appFilterSearch').value = '';
+    document.getElementById('appFilterDate').value = '';
+    document.getElementById('appFilterDoctor').value = '';
+    document.getElementById('appFilterTreatment').value = '';
+    document.getElementById('appFilterStatus').value = '';
+    loadAppointments();
+  }
+
+  // Quick Status Updater
+  async function updateAppStatus(id, newStatus) {
+    if (!confirm(`Are you sure you want to change appointment status to "${newStatus}"?`)) return;
+    try {
+      const res = await fetch(`/api/admin/appointments/${id}/status`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status: newStatus })
+      });
+      if (res.ok) {
+        showToast(`Appointment status updated to ${newStatus}.`, "success");
+        loadAppointments();
+        loadOverview();
+      }
+    } catch (err) {
+      showToast("Failed to update status.", "error");
+    }
+  }
+
+  // Reschedule Modal
+  function openRescheduleModal(id, date, time) {
+    document.getElementById('reschedAppId').value = id;
+    document.getElementById('reschedDate').value = date;
+    document.getElementById('reschedTime').value = time;
+    document.getElementById('reschedReason').value = '';
+    document.getElementById('rescheduleModal').classList.remove('hidden');
+  }
+
+  function closeRescheduleModal() {
+    document.getElementById('rescheduleModal').classList.add('hidden');
+  }
+
+  async function submitReschedule(e) {
+    e.preventDefault();
+    const id = document.getElementById('reschedAppId').value;
+    const date = document.getElementById('reschedDate').value;
+    const time = document.getElementById('reschedTime').value;
+    const reason = document.getElementById('reschedReason').value;
+
+    try {
+      const res = await fetch(`/api/admin/appointments/${id}/reschedule`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ new_date: date, new_time: time, reason: reason })
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        showToast(data.detail || "Collision detected. Slot is unavailable.", "error");
+        return;
+      }
+      showToast("Appointment successfully rescheduled!", "success");
+      closeRescheduleModal();
+      loadAppointments();
+    } catch (err) {
+      showToast("Network error rescheduling appointment.", "error");
+    }
+  }
+
+  // Load Schedule and Blocked Dates
+  async function loadScheduleAndBlocks() {
+    try {
+      const res = await fetch('/api/admin/schedule');
+      const data = await res.json();
+
+      const schedBody = document.getElementById('scheduleTableBody');
+      schedBody.innerHTML = '';
+      data.schedule.forEach(day => {
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-slate-50/50';
+        tr.innerHTML = `
+          <td class="py-3 px-4 font-bold text-brand-navy">${day.day_name}</td>
+          <td class="py-3 px-4">${day.is_open ? '<span class="text-emerald-700 font-bold">Open</span>' : '<span class="text-rose-600 font-bold">Closed</span>'}</td>
+          <td class="py-3 px-4 text-slate-700">${day.morning_start ? day.morning_start + ' – ' + day.morning_end : 'N/A'}</td>
+          <td class="py-3 px-4 text-slate-400">2:00 PM – 4:00 PM</td>
+          <td class="py-3 px-4 text-slate-700">${day.evening_start ? day.evening_start + ' – ' + day.evening_end : 'N/A'}</td>
+          <td class="py-3 px-4 text-slate-600">${day.slot_duration_minutes || 30} mins</td>
+        `;
+        schedBody.appendChild(tr);
+      });
+
+      const blockBody = document.getElementById('blockedDatesBody');
+      blockBody.innerHTML = '';
+      if (!data.blocked_dates || data.blocked_dates.length === 0) {
+        blockBody.innerHTML = '<tr><td colspan="4" class="py-4 text-center text-slate-400">No blocked dates scheduled.</td></tr>';
+      } else {
+        data.blocked_dates.forEach(b => {
+          const tr = document.createElement('tr');
+          tr.className = 'hover:bg-slate-50/50';
+          tr.innerHTML = `
+            <td class="py-2.5 px-4 font-bold text-slate-900">${b.blocked_date}</td>
+            <td class="py-2.5 px-4 text-slate-600">${b.doctor_name ? b.doctor_name + ' (Doctor Leave)' : 'All Doctors (Clinic Holiday)'}</td>
+            <td class="py-2.5 px-4 text-slate-500">${b.reason || 'Scheduled Leave'}</td>
+            <td class="py-2.5 px-4 text-right">
+              <button onclick="deleteBlockDate(${b.id})" class="text-rose-600 hover:text-rose-800 font-bold text-xs">Unblock ✕</button>
+            </td>
+          `;
+          blockBody.appendChild(tr);
+        });
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  async function addBlockDate(e) {
+    e.preventDefault();
+    const dt = document.getElementById('blockDateInput').value;
+    const doc = document.getElementById('blockDoctorSelect').value;
+    const reas = document.getElementById('blockReasonInput').value;
+
+    try {
+      const res = await fetch('/api/admin/blocked-dates', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          blocked_date: dt,
+          doctor_id: doc ? parseInt(doc, 10) : null,
+          reason: reas || null
+        })
+      });
+      if (res.ok) {
+        showToast("Date blocked successfully.", "success");
+        document.getElementById('blockDateInput').value = '';
+        document.getElementById('blockReasonInput').value = '';
+        loadScheduleAndBlocks();
+      }
+    } catch (err) {
+      showToast("Failed to block date.", "error");
+    }
+  }
+
+  async function deleteBlockDate(id) {
+    if (!confirm("Are you sure you want to remove this date block?")) return;
+    try {
+      const res = await fetch(`/api/admin/blocked-dates/${id}`, { method: 'DELETE' });
+      if (res.ok) {
+        showToast("Date unblocked successfully.", "success");
+        loadScheduleAndBlocks();
+      }
+    } catch (err) {
+      showToast("Failed to remove block.", "error");
+    }
+  }
+
+  // Load Enquiries
+  async function loadEnquiries() {
+    try {
+      const res = await fetch('/api/admin/enquiries');
+      const data = await res.json();
+      const body = document.getElementById('enquiriesTableBody');
+      body.innerHTML = '';
+      if (!data.enquiries || data.enquiries.length === 0) {
+        body.innerHTML = '<tr><td colspan="6" class="py-6 text-center text-slate-400">No patient enquiries received yet.</td></tr>';
+        return;
+      }
+      data.enquiries.forEach(enq => {
+        const tr = document.createElement('tr');
+        tr.className = `hover:bg-slate-50/50 ${enq.is_read ? 'opacity-70' : 'bg-brand-ivory/40'}`;
+        tr.innerHTML = `
+          <td class="py-3 px-4 text-slate-500 text-[10px]">${enq.created_at.split(' ')[0]}</td>
+          <td class="py-3 px-4 font-bold text-brand-navy">${enq.name}</td>
+          <td class="py-3 px-4">
+            <div class="font-semibold text-slate-800">${enq.phone}</div>
+            <div class="text-[10px] text-slate-400">${enq.email || ''}</div>
+          </td>
+          <td class="py-3 px-4 text-slate-700 font-medium">${enq.treatment_interest || 'General'}</td>
+          <td class="py-3 px-4 text-slate-600 max-w-xs break-words">${enq.message}</td>
+          <td class="py-3 px-4 text-right">
+            ${!enq.is_read ? `<button onclick="markEnquiryRead(${enq.id})" class="px-2 py-1 rounded bg-brand-navy text-white text-[10px] font-bold">Mark Read</button>` : '<span class="text-[10px] text-slate-400 font-semibold">Read ✓</span>'}
+          </td>
+        `;
+        body.appendChild(tr);
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  async function markEnquiryRead(id) {
+    try {
+      const res = await fetch(`/api/admin/enquiries/${id}/read`, { method: 'PATCH' });
+      if (res.ok) {
+        showToast("Enquiry marked as read.", "success");
+        loadEnquiries();
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  // Initial load
+  document.addEventListener('DOMContentLoaded', () => {
+    loadOverview();
+    
+    // Attach event listeners for appointment filter inputs
+    ['appFilterSearch', 'appFilterDate', 'appFilterDoctor', 'appFilterTreatment', 'appFilterStatus'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.addEventListener('change', loadAppointments);
+      if (el && el.tagName === 'INPUT') el.addEventListener('input', loadAppointments);
+    });
+  });
+</script>
+{% endblock %}

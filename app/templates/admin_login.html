@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Login | Enamel Microscopic Dentistry{% endblock %}
+
+{% block content %}
+<section class="min-h-[650px] bg-brand-navy flex items-center justify-center p-4">
+  <div class="max-w-md w-full bg-brand-darkNavy p-8 sm:p-10 rounded-3xl border border-brand-gold/30 shadow-2xl space-y-6 relative">
+    
+    <div class="text-center space-y-2">
+      <img src="/static/images/logo-white.svg" alt="Enamel Microscopic Dentistry" class="h-10 w-auto mx-auto mb-3">
+      <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-deepBlue text-brand-gold text-[10px] font-bold uppercase tracking-wider border border-brand-gold/20">
+        <i data-lucide="shield-check" class="w-3.5 h-3.5"></i> Authorized Staff Portal
+      </div>
+      <h1 class="text-2xl font-serif font-bold text-white">Clinic Administration</h1>
+      <p class="text-xs text-slate-400">Sign in to manage appointments, doctor schedules, and patient records.</p>
+    </div>
+
+    <!-- Demo Credentials Notice -->
+    <div class="p-3.5 rounded-xl bg-brand-deepBlue/70 border border-brand-gold/30 text-[11px] text-slate-300 space-y-1">
+      <div class="font-bold text-brand-gold flex items-center gap-1">
+        <i data-lucide="key" class="w-3.5 h-3.5"></i> Evaluation Credentials:
+      </div>
+      <div>Username: <code class="text-white font-mono bg-black/40 px-1 py-0.5 rounded">admin</code></div>
+      <div>Password: <code class="text-white font-mono bg-black/40 px-1 py-0.5 rounded">EnamelAdmin2026!</code></div>
+    </div>
+
+    <form id="adminLoginForm" onsubmit="handleAdminLogin(event)" class="space-y-4">
+      <div id="loginError" class="hidden p-3 rounded-xl bg-rose-950 border border-rose-800 text-rose-200 text-xs text-center"></div>
+
+      <div>
+        <label class="block text-xs font-bold text-slate-300 mb-1">Username</label>
+        <div class="relative">
+          <i data-lucide="user" class="w-4 h-4 text-slate-500 absolute left-3 top-1/2 -translate-y-1/2"></i>
+          <input type="text" id="adminUsername" required value="admin" class="w-full pl-9 pr-4 py-2.5 rounded-xl border border-slate-700 bg-brand-navy text-white text-xs focus:outline-none focus:border-brand-gold">
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-xs font-bold text-slate-300 mb-1">Password</label>
+        <div class="relative">
+          <i data-lucide="lock" class="w-4 h-4 text-slate-500 absolute left-3 top-1/2 -translate-y-1/2"></i>
+          <input type="password" id="adminPassword" required value="EnamelAdmin2026!" class="w-full pl-9 pr-4 py-2.5 rounded-xl border border-slate-700 bg-brand-navy text-white text-xs focus:outline-none focus:border-brand-gold">
+        </div>
+      </div>
+
+      <button type="submit" id="loginBtn" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-brand-goldLight via-brand-gold to-brand-goldDark text-brand-navy font-bold text-xs uppercase tracking-wider hover:brightness-110 transition shadow-lg shadow-brand-gold/20 flex items-center justify-center gap-2">
+        <span id="loginBtnText">Sign In to Dashboard</span>
+        <div id="loginSpinner" class="hidden w-4 h-4 border-2 border-brand-navy border-t-transparent rounded-full animate-spin"></div>
+      </button>
+    </form>
+
+    <div class="pt-2 text-center">
+      <a href="/" class="text-xs text-slate-400 hover:text-brand-gold transition">← Return to Public Website</a>
+    </div>
+
+  </div>
+</section>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+  async function handleAdminLogin(e) {
+    e.preventDefault();
+    const user = document.getElementById('adminUsername').value.trim();
+    const pass = document.getElementById('adminPassword').value;
+    const errorBox = document.getElementById('loginError');
+    const btn = document.getElementById('loginBtn');
+    const btnText = document.getElementById('loginBtnText');
+    const spinner = document.getElementById('loginSpinner');
+
+    errorBox.classList.add('hidden');
+    btn.disabled = true;
+    btnText.innerText = "Verifying...";
+    spinner.classList.remove('hidden');
+
+    try {
+      const res = await fetch('/api/admin/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username: user, password: pass })
+      });
+      const data = await res.json();
+
+      if (!res.ok || !data.success) {
+        errorBox.classList.remove('hidden');
+        errorBox.innerText = data.detail || "Invalid credentials.";
+        btn.disabled = false;
+        btnText.innerText = "Sign In to Dashboard";
+        spinner.classList.add('hidden');
+        return;
+      }
+
+      showToast("Authentication successful! Loading dashboard...", "success");
+      window.location.href = data.redirect_url || "/admin";
+
+    } catch (err) {
+      errorBox.classList.remove('hidden');
+      errorBox.innerText = "Connection error. Please try again.";
+      btn.disabled = false;
+      btnText.innerText = "Sign In to Dashboard";
+      spinner.classList.add('hidden');
+    }
+  }
+</script>
+{% endblock %}

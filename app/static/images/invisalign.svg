@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="600" height="400">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E293B"/>
+      <stop offset="100%" stop-color="#07111C"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F3EFE6"/>
+      <stop offset="50%" stop-color="#C5A880"/>
+      <stop offset="100%" stop-color="#8F6B38"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="65%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#C5A880" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="600" height="400" fill="url(#bg)"/>
+  <rect width="600" height="400" fill="url(#glow)"/>
+  
+  <!-- Modern medical geometric lines -->
+  <g opacity="0.15" stroke="#FFFFFF" stroke-width="1">
+    <circle cx="440" cy="180" r="160" fill="none" stroke="url(#gold)" stroke-width="1.5"/>
+    <circle cx="440" cy="180" r="100" fill="none" stroke-dasharray="6 6"/>
+    <line x1="260" y1="180" x2="580" y2="180"/>
+    <line x1="440" y1="20" x2="440" y2="340"/>
+  </g>
+
+  <!-- Central Graphic Icon Feature -->
+  <g transform="translate(380, 110)">
+    <rect x="0" y="0" width="120" height="120" rx="24" fill="#0B1B2B" stroke="url(#gold)" stroke-width="2" opacity="0.9"/>
+    <!-- Tooth emblem -->
+    <path d="M 45 35 C 45 28, 52 26, 60 30 C 68 26, 75 28, 75 35 C 75 44, 72 54, 70 75 C 68 80, 64 81, 62 72 C 60 67, 60 67, 58 72 C 56 81, 52 80, 50 75 C 48 54, 45 44, 45 35 Z" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round"/>
+    <!-- Microscopic target lens -->
+    <circle cx="60" cy="48" r="16" fill="none" stroke="url(#gold)" stroke-width="2.5"/>
+    <circle cx="60" cy="48" r="5" fill="url(#gold)"/>
+    <line x1="60" y1="26" x2="60" y2="34" stroke="url(#gold)" stroke-width="2"/>
+    <line x1="60" y1="62" x2="60" y2="70" stroke="url(#gold)" stroke-width="2"/>
+    <line x1="38" y1="48" x2="46" y2="48" stroke="url(#gold)" stroke-width="2"/>
+    <line x1="74" y1="48" x2="82" y2="48" stroke="url(#gold)" stroke-width="2"/>
+  </g>
+
+  <!-- Left Info Overlay -->
+  <g transform="translate(45, 75)">
+    <rect x="-8" y="-8" width="160" height="26" rx="13" fill="#C5A880" fill-opacity="0.2" stroke="url(#gold)" stroke-width="1"/>
+    <text x="8" y="10" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="10" font-weight="700" letter-spacing="1.5" fill="#E2CA9E">ENAMEL CLINICAL CARE</text>
+    
+    <text x="0" y="65" font-family="'Playfair Display', Georgia, serif" font-size="24" font-weight="700" fill="#FFFFFF">Invisalign Clear Aligners</text>
+    <text x="0" y="95" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="13" font-weight="400" fill="#CBD5E1">Virtually Invisible 3D SmartTrack Aligners</text>
+    
+    <g transform="translate(0, 135)">
+      <circle cx="10" cy="10" r="9" fill="#C5A880" fill-opacity="0.2"/>
+      <text x="6" y="14" font-family="system-ui" font-size="11" fill="#E2CA9E">✓</text>
+      <text x="28" y="14" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="12.5" font-weight="500" fill="#F1F5F9">Microscopic Precision Protocol</text>
+      
+      <circle cx="10" cy="38" r="9" fill="#C5A880" fill-opacity="0.2"/>
+      <text x="6" y="42" font-family="system-ui" font-size="11" fill="#E2CA9E">✓</text>
+      <text x="28" y="42" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="12.5" font-weight="500" fill="#F1F5F9">Specialist-Led Examination</text>
+      
+      <circle cx="10" cy="66" r="9" fill="#C5A880" fill-opacity="0.2"/>
+      <text x="6" y="70" font-family="system-ui" font-size="11" fill="#E2CA9E">✓</text>
+      <text x="28" y="70" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="12.5" font-weight="500" fill="#F1F5F9">Strict International Sterilisation</text>
+    </g>
+  </g>
+</svg>

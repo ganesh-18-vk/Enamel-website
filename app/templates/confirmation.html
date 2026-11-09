@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block title %}Appointment Confirmed - {{ appointment.booking_ref }} | Enamel Microscopic Dentistry{% endblock %}
+
+{% block content %}
+<section class="py-16 bg-brand-ivory min-h-[700px] flex items-center justify-center">
+  <div class="max-w-xl w-full mx-4 bg-white rounded-3xl p-6 sm:p-10 border border-brand-gold/30 shadow-2xl text-center space-y-6">
+    
+    <div class="w-16 h-16 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center text-3xl font-bold mx-auto border-4 border-emerald-50">
+      ✓
+    </div>
+
+    <div>
+      <span class="px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-[11px] font-bold uppercase tracking-wider">
+        Status: {{ appointment.status }}
+      </span>
+      <h1 class="text-2xl sm:text-3xl font-serif font-bold text-brand-navy mt-2">
+        Confirmed Dental Appointment
+      </h1>
+      <p class="text-xs text-slate-500 mt-1">
+        Booking details on record at Enamel Microscopic Dentistry.
+      </p>
+    </div>
+
+    <!-- Booking Summary Details Card -->
+    <div class="p-6 rounded-2xl bg-brand-ivory border border-brand-gold/30 shadow-sm text-left space-y-3 text-xs">
+      <div class="flex items-center justify-between pb-3 border-b border-brand-gold/20">
+        <span class="text-slate-500 font-semibold">Booking Reference:</span>
+        <span class="font-mono font-bold text-base text-brand-navy">{{ appointment.booking_ref }}</span>
+      </div>
+      <div class="flex justify-between">
+        <span class="text-slate-500 font-medium">Patient Name:</span>
+        <span class="font-bold text-slate-800">{{ appointment.patient_name }}</span>
+      </div>
+      <div class="flex justify-between">
+        <span class="text-slate-500 font-medium">Doctor:</span>
+        <span class="font-bold text-slate-800">{{ appointment.doctor_name }} ({{ appointment.doctor_title }})</span>
+      </div>
+      <div class="flex justify-between">
+        <span class="text-slate-500 font-medium">Treatment:</span>
+        <span class="font-bold text-slate-800">{{ appointment.treatment_name }}</span>
+      </div>
+      <div class="flex justify-between">
+        <span class="text-slate-500 font-medium">Scheduled Date & Time:</span>
+        <span class="font-bold text-brand-goldDark">{{ appointment.appointment_date }} at {{ appointment.formatted_time }}</span>
+      </div>
+      <div class="pt-3 border-t border-brand-gold/20">
+        <span class="text-slate-500 font-medium block">Clinic Address:</span>
+        <span class="text-slate-700 font-medium block mt-0.5">#42, 2nd Cross, Mahajana Layout, Vijaynagar Main Road, Mysuru, Karnataka 570017</span>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="flex flex-col sm:flex-row gap-3 pt-2">
+      <a href="https://wa.me/{{ clinic.phone_clean }}?text={{ ('Hello Enamel Microscopic Dentistry, confirming my appointment ' + appointment.booking_ref + ' for ' + appointment.patient_name + ' on ' + appointment.appointment_date + ' at ' + appointment.formatted_time) | urlencode }}" target="_blank" rel="noopener" class="flex-1 py-3 px-4 rounded-xl bg-emerald-600 text-white text-xs font-bold text-center flex items-center justify-center gap-2 hover:bg-emerald-500 transition shadow-sm">
+        <i data-lucide="message-circle" class="w-4 h-4"></i>
+        WhatsApp Clinic
+      </a>
+      <a href="tel:{{ clinic.phone_clean }}" class="flex-1 py-3 px-4 rounded-xl bg-brand-navy text-white text-xs font-bold text-center flex items-center justify-center gap-2 hover:bg-brand-deepBlue transition shadow-sm">
+        <i data-lucide="phone" class="w-4 h-4 text-brand-gold"></i>
+        Call Clinic
+      </a>
+    </div>
+
+    <div class="pt-2 flex justify-center gap-4 text-xs">
+      <button type="button" onclick="window.print()" class="text-slate-500 hover:text-brand-navy underline">
+        Print Confirmation Slip
+      </button>
+      <span class="text-slate-300">•</span>
+      <a href="/" class="text-brand-navy font-semibold hover:text-brand-gold">
+        Return to Homepage
+      </a>
+    </div>
+
+  </div>
+</section>
+{% endblock %}

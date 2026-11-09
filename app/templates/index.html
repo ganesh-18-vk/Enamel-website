@@ -1,0 +1,427 @@
+{% extends "base.html" %}
+
+{% block title %}Enamel Microscopic Dentistry | Precision Dental Clinic in Mysuru{% endblock %}
+
+{% block content %}
+<!-- ================= 1. HERO SECTION ================= -->
+<section class="relative bg-brand-navy overflow-hidden pt-12 pb-20 lg:pt-16 lg:pb-28 border-b border-brand-deepBlue">
+  <!-- Subtle Background Geometric Glow -->
+  <div class="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_70%_-20%,rgba(197,168,128,0.15),rgba(255,255,255,0))]"></div>
+  
+  <div class="max-w-7xl mx-auto px-4 sm:px-8 relative z-10">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      
+      <!-- Hero Left Copy -->
+      <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+        <!-- Badge -->
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-deepBlue/80 border border-brand-gold/30 text-brand-goldLight text-xs font-semibold tracking-wide">
+          <i data-lucide="microscope" class="w-3.5 h-3.5 text-brand-gold"></i>
+          PIONEERING MICROSCOPIC DENTISTRY IN MYSURU
+        </div>
+
+        <!-- Headline -->
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-white tracking-tight leading-[1.15]">
+          Precision Dentistry.<br>
+          <span class="gold-gradient-text">Beautiful Smiles.</span><br>
+          Exceptional Care.
+        </h1>
+
+        <!-- Supporting Text -->
+        <p class="text-base sm:text-lg text-slate-300 max-w-2xl font-normal leading-relaxed mx-auto lg:mx-0">
+          Experience advanced microscopic dentistry with a dedicated team of specialists, modern technology and personalised treatment designed around your comfort.
+        </p>
+
+        <!-- CTA Buttons -->
+        <div class="pt-2 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+          <a href="/book" class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-xl bg-gradient-to-r from-brand-goldLight via-brand-gold to-brand-goldDark text-brand-navy font-bold text-sm uppercase tracking-wider hover:brightness-110 transition shadow-xl shadow-brand-gold/20 transform active:scale-95">
+            <i data-lucide="calendar" class="w-4 h-4"></i>
+            Book An Appointment
+          </a>
+          <a href="/treatments" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-brand-deepBlue/80 hover:bg-brand-deepBlue text-slate-200 hover:text-white font-semibold text-sm border border-slate-700 hover:border-brand-gold/40 transition">
+            <i data-lucide="sparkles" class="w-4 h-4 text-brand-gold"></i>
+            Explore Our Treatments
+          </a>
+        </div>
+
+        <!-- Key Trust Badges -->
+        <div class="pt-6 grid grid-cols-2 sm:grid-cols-4 gap-4 border-t border-slate-800 text-left">
+          <div class="space-y-1">
+            <div class="text-brand-gold font-serif text-xl sm:text-2xl font-bold">25x</div>
+            <div class="text-[11px] text-slate-400 font-medium">Surgical Magnification</div>
+          </div>
+          <div class="space-y-1">
+            <div class="text-brand-gold font-serif text-xl sm:text-2xl font-bold">100%</div>
+            <div class="text-[11px] text-slate-400 font-medium">Strict Bio-Sterility</div>
+          </div>
+          <div class="space-y-1">
+            <div class="text-brand-gold font-serif text-xl sm:text-2xl font-bold">30+</div>
+            <div class="text-[11px] text-slate-400 font-medium">Yrs Specialist Team</div>
+          </div>
+          <div class="space-y-1">
+            <div class="text-brand-gold font-serif text-xl sm:text-2xl font-bold">0.3mm</div>
+            <div class="text-[11px] text-slate-400 font-medium">Minimally Invasive</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Hero Right Visual: High Magnification Graphic & Microscope Banner -->
+      <div class="lg:col-span-5 relative">
+        <div class="relative mx-auto rounded-3xl overflow-hidden border border-brand-gold/30 shadow-2xl bg-brand-darkNavy group">
+          <img src="/static/images/hero-microscope.svg" alt="Dental Operating Microscope at Enamel Microscopic Dentistry" class="w-full h-auto object-cover transform transition duration-500 group-hover:scale-105">
+          <!-- Glass overlay card on bottom of image -->
+          <div class="absolute bottom-4 left-4 right-4 p-4 rounded-2xl bg-brand-navy/90 backdrop-blur-md border border-brand-gold/20 flex items-center justify-between text-xs">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-brand-gold/20 flex items-center justify-center text-brand-gold shrink-0">
+                <i data-lucide="crosshair" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <p class="font-bold text-white">Carl Zeiss Optical Optics</p>
+                <p class="text-slate-400 text-[11px]">Unmatched illumination & precision</p>
+              </div>
+            </div>
+            <a href="/about" class="text-brand-gold hover:underline font-semibold text-[11px] shrink-0">Learn More →</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= 2. FOUR PILLARS TRUST SECTION ================= -->
+<section class="py-16 bg-white border-b border-stone-200">
+  <div class="max-w-7xl mx-auto px-4 sm:px-8">
+    <div class="text-center max-w-2xl mx-auto mb-12">
+      <h2 class="text-xs uppercase tracking-widest font-bold text-brand-goldDark">Why Patients Choose Enamel</h2>
+      <p class="text-2xl sm:text-3xl font-serif font-bold text-brand-navy mt-1">The Microscopic Precision Difference</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <!-- Pillar 1 -->
+      <div class="luxury-card p-6 rounded-2xl space-y-3">
+        <div class="w-12 h-12 rounded-xl bg-brand-ivoryDark flex items-center justify-center text-brand-goldDark">
+          <i data-lucide="microscope" class="w-6 h-6"></i>
+        </div>
+        <h3 class="font-serif font-bold text-lg text-brand-navy">Advanced Microscopic Technology</h3>
+        <p class="text-xs text-slate-600 leading-relaxed">
+          Operating microscopes magnify complex root anatomy and enamel margins up to 25 times under shadowless coaxial LED illumination, removing all clinical guesswork.
+        </p>
+      </div>
+
+      <!-- Pillar 2 -->
+      <div class="luxury-card p-6 rounded-2xl space-y-3">
+        <div class="w-12 h-12 rounded-xl bg-brand-ivoryDark flex items-center justify-center text-brand-goldDark">
+          <i data-lucide="feather" class="w-6 h-6"></i>
+        </div>
+        <h3 class="font-serif font-bold text-lg text-brand-navy">Minimally Invasive Dental Care</h3>
+        <p class="text-xs text-slate-600 leading-relaxed">
+          Our bio-mimetic approach preserves healthy pericervical dentin and native enamel, creating ultra-conservative preparations that maximize tooth longevity.
+        </p>
+      </div>
+
+      <!-- Pillar 3 -->
+      <div class="luxury-card p-6 rounded-2xl space-y-3">
+        <div class="w-12 h-12 rounded-xl bg-brand-ivoryDark flex items-center justify-center text-brand-goldDark">
+          <i data-lucide="award" class="w-6 h-6"></i>
+        </div>
+        <h3 class="font-serif font-bold text-lg text-brand-navy">Experienced Dental Specialists</h3>
+        <p class="text-xs text-slate-600 leading-relaxed">
+          Care is provided by verified specialists in Microscopic Endodontics, Invisalign Orthodontics, and Periodontal Implantology with over three decades of collective experience.
+        </p>
+      </div>
+
+      <!-- Pillar 4 -->
+      <div class="luxury-card p-6 rounded-2xl space-y-3">
+        <div class="w-12 h-12 rounded-xl bg-brand-ivoryDark flex items-center justify-center text-brand-goldDark">
+          <i data-lucide="heart-pulse" class="w-6 h-6"></i>
+        </div>
+        <h3 class="font-serif font-bold text-lg text-brand-navy">Patient-Focused Treatment</h3>
+        <p class="text-xs text-slate-600 leading-relaxed">
+          From painless computer-assisted local anesthesia to ceiling relaxation screens, every touchpoint is designed to deliver a calm, reassuring, and dignified dental experience.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 3. MICROSCOPIC VS NAKED EYE COMPARISON ================= -->
+<section class="py-20 bg-brand-ivory border-b border-stone-200">
+  <div class="max-w-7xl mx-auto px-4 sm:px-8">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      
+      <div class="lg:col-span-6 space-y-6">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-brand-ivoryDark text-brand-goldDark text-xs font-semibold tracking-wide border border-brand-gold/30">
+          CLINICAL PRECISION BENCHMARK
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-serif font-bold text-brand-navy leading-tight">
+          Why We Perform Dentistry Under A Microscope
+        </h2>
+        <p class="text-slate-600 text-sm leading-relaxed">
+          The human eye can resolve details down to roughly 0.2 millimeters. In contrast, dental nerve canals and structural enamel micro-fractures measure mere microns. Operating without high magnification means relying on tactile estimation.
+        </p>
+        <p class="text-slate-600 text-sm leading-relaxed">
+          At Enamel, high-powered surgical microscopes provide up to <strong>2500% greater visual clarity</strong>, allowing our doctors to detect hidden root canals, seal restorative margins seamlessly, and save teeth that would otherwise be deemed unsalvageable.
+        </p>
+
+        <div class="space-y-3 pt-2">
+          <div class="flex items-start gap-3 text-xs text-slate-700">
+            <div class="w-5 h-5 rounded-full bg-emerald-100 text-emerald-800 flex items-center justify-center shrink-0 mt-0.5 font-bold">✓</div>
+            <div><strong>Hidden Canal Detection:</strong> Finds accessory canals (e.g., MB2 in molars) often missed by conventional unmagnified endodontics.</div>
+          </div>
+          <div class="flex items-start gap-3 text-xs text-slate-700">
+            <div class="w-5 h-5 rounded-full bg-emerald-100 text-emerald-800 flex items-center justify-center shrink-0 mt-0.5 font-bold">✓</div>
+            <div><strong>Pericervical Dentin Preservation:</strong> Prevents excessive tooth drilling, ensuring your natural tooth remains structurally resilient for decades.</div>
+          </div>
+          <div class="flex items-start gap-3 text-xs text-slate-700">
+            <div class="w-5 h-5 rounded-full bg-emerald-100 text-emerald-800 flex items-center justify-center shrink-0 mt-0.5 font-bold">✓</div>
+            <div><strong>Aesthetic Margin Blending:</strong> Allows microscopic composite layering and veneer bonding that mimics natural enamel light transmission.</div>
+          </div>
+        </div>
+
+        <div class="pt-4">
+          <a href="/about" class="inline-flex items-center gap-2 text-brand-goldDark hover:text-brand-navy font-semibold text-xs tracking-wider uppercase transition">
+            Read About Our Clinical Philosophy →
+          </a>
+        </div>
+      </div>
+
+      <!-- Comparison Interactive Visual Box -->
+      <div class="lg:col-span-6">
+        <div class="bg-white rounded-3xl p-6 sm:p-8 border border-brand-gold/30 shadow-xl space-y-6">
+          <h3 class="text-center font-serif font-bold text-xl text-brand-navy">Visual Resolution Comparison</h3>
+          
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <!-- Conventional Naked Eye -->
+            <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-3 text-center">
+              <span class="inline-block px-3 py-1 rounded-full bg-slate-200 text-slate-700 text-[11px] font-bold">Conventional Dental Vision</span>
+              <div class="w-20 h-20 mx-auto rounded-full bg-slate-200 flex items-center justify-center text-slate-500 font-serif text-2xl font-bold">
+                1x
+              </div>
+              <p class="text-xs font-semibold text-slate-800">Tactile & Naked Eye</p>
+              <ul class="text-[11px] text-slate-500 text-left space-y-1.5 pt-1">
+                <li class="flex items-center gap-1.5 text-rose-600">✕ Can miss sub-millimeter accessory canals</li>
+                <li class="flex items-center gap-1.5 text-rose-600">✕ Larger cavity access needed to view depth</li>
+                <li class="flex items-center gap-1.5 text-rose-600">✕ Early hairline micro-fractures invisible</li>
+              </ul>
+            </div>
+
+            <!-- Microscope 25x -->
+            <div class="p-5 rounded-2xl bg-brand-navy text-white border border-brand-gold space-y-3 text-center relative overflow-hidden">
+              <div class="absolute -right-6 -top-6 w-20 h-20 bg-brand-gold/20 rounded-full blur-xl"></div>
+              <span class="inline-block px-3 py-1 rounded-full bg-brand-gold text-brand-navy text-[11px] font-bold">Enamel Operating Microscope</span>
+              <div class="w-20 h-20 mx-auto rounded-full bg-brand-deepBlue border-2 border-brand-gold flex items-center justify-center text-brand-gold font-serif text-2xl font-bold gold-glow">
+                25x
+              </div>
+              <p class="text-xs font-semibold text-brand-goldLight">Surgical Micro-Magnification</p>
+              <ul class="text-[11px] text-slate-300 text-left space-y-1.5 pt-1">
+                <li class="flex items-center gap-1.5 text-emerald-400">✓ Illumination down to root canal apex</li>
+                <li class="flex items-center gap-1.5 text-emerald-400">✓ Ultra-conservative micro-access cavities</li>
+                <li class="flex items-center gap-1.5 text-emerald-400">✓ Identifies micro-fractures before failure</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="p-4 rounded-xl bg-brand-ivory border border-brand-gold/20 text-center text-xs text-slate-600">
+            <strong>Clinical Result:</strong> Higher treatment predictability, biologically preserved teeth, and long-term functional stability.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= 4. OUR DOCTORS SPOTLIGHT ================= -->
+<section class="py-20 bg-white border-b border-stone-200">
+  <div class="max-w-7xl mx-auto px-4 sm:px-8">
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+      <div>
+        <h2 class="text-xs uppercase tracking-widest font-bold text-brand-goldDark">Specialist-Led Excellence</h2>
+        <p class="text-2xl sm:text-3xl font-serif font-bold text-brand-navy mt-1">Meet Our Specialized Clinical Team</p>
+      </div>
+      <a href="/doctors" class="inline-flex items-center gap-1.5 text-xs font-bold text-brand-navy hover:text-brand-gold transition uppercase tracking-wider">
+        View Detailed Doctor Profiles →
+      </a>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {% for doc in doctors %}
+      <div class="luxury-card rounded-3xl overflow-hidden flex flex-col justify-between">
+        <div class="relative bg-brand-navy aspect-[4/3] overflow-hidden">
+          <img src="{{ doc.photo_url }}" alt="{{ doc.name }}" class="w-full h-full object-cover">
+          <div class="absolute top-3 right-3 px-3 py-1 rounded-full bg-brand-darkNavy/90 backdrop-blur-md border border-brand-gold/30 text-[10px] font-semibold text-brand-gold">
+            {{ doc.experience_years }}+ Yrs Experience
+          </div>
+        </div>
+        <div class="p-6 flex-grow flex flex-col justify-between space-y-4">
+          <div>
+            <h3 class="font-serif font-bold text-xl text-brand-navy">{{ doc.name }}</h3>
+            <p class="text-xs font-semibold text-brand-goldDark mt-0.5">{{ doc.title }}</p>
+            <p class="text-[11px] text-slate-500 mt-2 font-medium">{{ doc.qualifications }}</p>
+            <p class="text-xs text-slate-600 mt-3 line-clamp-3 leading-relaxed">{{ doc.bio }}</p>
+          </div>
+          <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+            <span class="text-[11px] text-slate-500 font-medium">Mon–Sat Consulting</span>
+            <a href="/book?doctor={{ doc.id }}" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-brand-navy hover:bg-brand-deepBlue text-white text-xs font-bold transition shadow-sm">
+              <i data-lucide="calendar" class="w-3.5 h-3.5 text-brand-gold"></i>
+              Book With Doctor
+            </a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ================= 5. DENTAL TREATMENTS SHOWCASE (14 TREATMENTS) ================= -->
+<section class="py-20 bg-brand-ivory border-b border-stone-200" id="treatments">
+  <div class="max-w-7xl mx-auto px-4 sm:px-8">
+    <div class="text-center max-w-2xl mx-auto mb-12">
+      <h2 class="text-xs uppercase tracking-widest font-bold text-brand-goldDark">Comprehensive Dental Services</h2>
+      <p class="text-2xl sm:text-3xl font-serif font-bold text-brand-navy mt-1">Specialized Treatments at Enamel</p>
+      <p class="text-xs sm:text-sm text-slate-600 mt-2">
+        Every treatment is delivered using high-magnification optics, digital diagnostics, and conservative biomimetic protocols.
+      </p>
+    </div>
+
+    <!-- Treatment Cards Grid (Top 8 featured, with link to full catalog) -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      {% for t in treatments[:8] %}
+      <div class="luxury-card rounded-2xl overflow-hidden flex flex-col justify-between group">
+        <div class="relative aspect-[16/10] bg-brand-navy overflow-hidden">
+          <img src="{{ t.image_url }}" alt="{{ t.name }}" class="w-full h-full object-cover transition duration-300 group-hover:scale-105">
+          <div class="absolute bottom-2 left-2 px-2.5 py-0.5 rounded-md bg-brand-darkNavy/85 text-[10px] font-semibold text-brand-goldLight border border-brand-gold/20">
+            {{ t.category }}
+          </div>
+        </div>
+        <div class="p-5 flex-grow flex flex-col justify-between space-y-3">
+          <div>
+            <h3 class="font-serif font-bold text-base text-brand-navy group-hover:text-brand-goldDark transition">
+              <a href="/treatments/{{ t.slug }}">{{ t.name }}</a>
+            </h3>
+            <p class="text-xs text-slate-600 mt-1.5 line-clamp-2 leading-relaxed">
+              {{ t.short_description }}
+            </p>
+          </div>
+          <div class="pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
+            <span class="text-slate-500 font-medium">~{{ t.duration_minutes }} mins</span>
+            <a href="/treatments/{{ t.slug }}" class="text-brand-navy hover:text-brand-gold font-bold text-xs inline-flex items-center gap-1 transition">
+              Details →
+            </a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <!-- View All 14 Treatments Callout -->
+    <div class="mt-12 text-center">
+      <a href="/treatments" class="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-brand-navy text-white hover:bg-brand-deepBlue font-semibold text-xs uppercase tracking-wider transition shadow-md">
+        View All 14 Dental Treatments & Detail Pages →
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 6. AUTHENTIC PATIENT TESTIMONIALS ================= -->
+<section class="py-20 bg-white border-b border-stone-200">
+  <div class="max-w-7xl mx-auto px-4 sm:px-8">
+    <div class="text-center max-w-2xl mx-auto mb-14">
+      <h2 class="text-xs uppercase tracking-widest font-bold text-brand-goldDark">Patient Experiences</h2>
+      <p class="text-2xl sm:text-3xl font-serif font-bold text-brand-navy mt-1">What Our Patients Say</p>
+      <p class="text-xs sm:text-sm text-slate-600 mt-2">Authentic feedback from patients treated at Enamel Microscopic Dentistry in Mysuru.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <!-- Testimonial 1 -->
+      <div class="luxury-card p-6 sm:p-8 rounded-3xl space-y-4 relative flex flex-col justify-between">
+        <div>
+          <div class="flex items-center gap-1 text-amber-400 mb-3">
+            ★★★★★
+          </div>
+          <p class="text-xs sm:text-sm text-slate-700 italic leading-relaxed">
+            "I had a complicated root canal on my molar that two other clinics were hesitant to touch without extraction. Dr. Shreyas treated it completely under the operating microscope in one session. Zero discomfort during the procedure and he showed me the 3D photos of the hidden canal. Remarkable care."
+          </p>
+        </div>
+        <div class="pt-4 border-t border-slate-100 flex items-center justify-between text-xs">
+          <div>
+            <div class="font-bold text-brand-navy">Siddharth N.</div>
+            <div class="text-[11px] text-slate-500">Microscopic Root Canal Therapy</div>
+          </div>
+          <span class="px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 text-[10px] font-semibold">Verified Patient</span>
+        </div>
+      </div>
+
+      <!-- Testimonial 2 -->
+      <div class="luxury-card p-6 sm:p-8 rounded-3xl space-y-4 relative flex flex-col justify-between">
+        <div>
+          <div class="flex items-center gap-1 text-amber-400 mb-3">
+            ★★★★★
+          </div>
+          <p class="text-xs sm:text-sm text-slate-700 italic leading-relaxed">
+            "Dr. Rohit explained every phase of my Invisalign treatment using 3D simulations before I committed. The clinic environment is exceptionally clean and peaceful. Within 8 months, my crowded teeth straightened completely without any metal brackets."
+          </p>
+        </div>
+        <div class="pt-4 border-t border-slate-100 flex items-center justify-between text-xs">
+          <div>
+            <div class="font-bold text-brand-navy">Ananya Rao</div>
+            <div class="text-[11px] text-slate-500">Invisalign Clear Aligners</div>
+          </div>
+          <span class="px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 text-[10px] font-semibold">Verified Patient</span>
+        </div>
+      </div>
+
+      <!-- Testimonial 3 -->
+      <div class="luxury-card p-6 sm:p-8 rounded-3xl space-y-4 relative flex flex-col justify-between">
+        <div>
+          <div class="flex items-center gap-1 text-amber-400 mb-3">
+            ★★★★★
+          </div>
+          <p class="text-xs sm:text-sm text-slate-700 italic leading-relaxed">
+            "Had a dental implant placed by Dr. Jithin. The clinical precision and strict sterilisation protocol gave me total peace of mind. The replacement tooth looks and feels identical to my natural teeth. Truly Mysuru's top dental clinic."
+          </p>
+        </div>
+        <div class="pt-4 border-t border-slate-100 flex items-center justify-between text-xs">
+          <div>
+            <div class="font-bold text-brand-navy">Rajesh Venkatesh</div>
+            <div class="text-[11px] text-slate-500">Dental Implant & Crown</div>
+          </div>
+          <span class="px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 text-[10px] font-semibold">Verified Patient</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-8 text-center">
+      <a href="/testimonials" class="text-xs font-bold text-brand-goldDark hover:text-brand-navy uppercase tracking-wider">
+        Read All Patient Reviews & Attributions →
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 7. CTA BANNER ================= -->
+<section class="py-16 bg-brand-navy text-white relative overflow-hidden">
+  <div class="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(197,168,128,0.12),transparent)]"></div>
+  <div class="max-w-5xl mx-auto px-4 sm:px-8 relative z-10 text-center space-y-6">
+    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-deepBlue text-brand-gold text-xs font-semibold border border-brand-gold/30">
+      <i data-lucide="calendar" class="w-3.5 h-3.5"></i> CONVENIENT APPOINTMENT BOOKING
+    </div>
+    <h2 class="text-3xl sm:text-4xl font-serif font-bold tracking-tight">
+      Ready For A Precise, Reassuring Dental Visit?
+    </h2>
+    <p class="text-slate-300 text-sm sm:text-base max-w-2xl mx-auto">
+      Book your consultation online in a few clicks. Select your desired treatment, choose your doctor, and lock in your convenient date and time.
+    </p>
+    <div class="pt-2 flex flex-col sm:flex-row items-center justify-center gap-4">
+      <a href="/book" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-brand-goldLight via-brand-gold to-brand-goldDark text-brand-navy font-bold text-xs uppercase tracking-wider hover:brightness-110 transition shadow-xl shadow-brand-gold/20">
+        Book Appointment Online
+      </a>
+      <a href="tel:{{ clinic.phone_clean }}" class="w-full sm:w-auto px-8 py-4 rounded-xl border border-slate-700 bg-brand-deepBlue/80 hover:bg-brand-deepBlue text-slate-200 font-semibold text-xs tracking-wider uppercase transition">
+        Call Clinic: {{ clinic.phone }}
+      </a>
+    </div>
+  </div>
+</section>
+{% endblock %}

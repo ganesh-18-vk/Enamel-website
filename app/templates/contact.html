@@ -1,0 +1,267 @@
+{% extends "base.html" %}
+
+{% block title %}Contact Us & Location | Enamel Microscopic Dentistry Mysuru{% endblock %}
+
+{% block content %}
+<!-- Hero Header -->
+<section class="bg-brand-navy py-16 text-center text-white border-b border-brand-deepBlue">
+  <div class="max-w-4xl mx-auto px-4 space-y-3">
+    <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-brand-deepBlue border border-brand-gold/30 text-brand-gold text-xs font-semibold uppercase tracking-wider">
+      GET IN TOUCH
+    </div>
+    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold">
+      Contact & Location
+    </h1>
+    <p class="text-slate-300 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
+      Located conveniently on Vijaynagar Main Road in Mysuru. Reach out for appointments, specialist queries, or clinic directions.
+    </p>
+  </div>
+</section>
+
+<section class="py-16 bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-8">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+      
+      <!-- Left Column: Clinic Contact Details & Working Hours -->
+      <div class="lg:col-span-5 space-y-8">
+        
+        <div>
+          <h2 class="text-xs uppercase tracking-widest font-bold text-brand-goldDark">Visit Our Practice</h2>
+          <h3 class="text-2xl font-serif font-bold text-brand-navy mt-1">Enamel Microscopic Dentistry</h3>
+          <p class="text-xs text-slate-500 mt-2">Boutique dental facility in Mysuru equipped with advanced surgical microscopes.</p>
+        </div>
+
+        <!-- Contact Points List -->
+        <div class="space-y-4 text-xs">
+          <!-- Address -->
+          <div class="p-4 rounded-2xl bg-brand-ivory border border-brand-gold/20 flex items-start gap-3.5">
+            <div class="w-9 h-9 rounded-xl bg-brand-navy text-brand-gold flex items-center justify-center shrink-0 mt-0.5">
+              <i data-lucide="map-pin" class="w-4 h-4"></i>
+            </div>
+            <div>
+              <div class="font-bold text-brand-navy text-sm">Clinic Location</div>
+              <p class="text-slate-600 mt-1 leading-relaxed">
+                #42, 2nd Cross, Mahajana Layout, Vijaynagar Main Road, Mysuru, Karnataka 570017, India
+              </p>
+              <a href="{{ clinic.map_url }}" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 text-brand-goldDark hover:underline font-bold mt-2">
+                <i data-lucide="navigation" class="w-3.5 h-3.5"></i> Open in Google Maps →
+              </a>
+            </div>
+          </div>
+
+          <!-- Phone -->
+          <div class="p-4 rounded-2xl bg-brand-ivory border border-brand-gold/20 flex items-start gap-3.5">
+            <div class="w-9 h-9 rounded-xl bg-brand-navy text-brand-gold flex items-center justify-center shrink-0 mt-0.5">
+              <i data-lucide="phone" class="w-4 h-4"></i>
+            </div>
+            <div>
+              <div class="font-bold text-brand-navy text-sm">Phone Inquiries</div>
+              <p class="text-slate-600 mt-1">Direct call for scheduling and emergency appointments:</p>
+              <a href="tel:{{ clinic.phone_clean }}" class="text-brand-navy font-bold text-sm block mt-1 hover:text-brand-gold">
+                {{ clinic.phone }}
+              </a>
+            </div>
+          </div>
+
+          <!-- WhatsApp -->
+          <div class="p-4 rounded-2xl bg-emerald-50/60 border border-emerald-200 flex items-start gap-3.5">
+            <div class="w-9 h-9 rounded-xl bg-emerald-600 text-white flex items-center justify-center shrink-0 mt-0.5">
+              <i data-lucide="message-circle" class="w-4 h-4"></i>
+            </div>
+            <div>
+              <div class="font-bold text-emerald-950 text-sm">WhatsApp Concierge</div>
+              <p class="text-slate-600 mt-1">Instant message with our clinic desk:</p>
+              <a href="https://wa.me/{{ clinic.phone_clean }}?text={{ clinic.whatsapp_prefill | urlencode }}" target="_blank" rel="noopener" class="text-emerald-700 font-bold block mt-1 hover:underline">
+                Chat on WhatsApp (+91 88673 74949) →
+              </a>
+            </div>
+          </div>
+
+          <!-- Email -->
+          <div class="p-4 rounded-2xl bg-brand-ivory border border-brand-gold/20 flex items-start gap-3.5">
+            <div class="w-9 h-9 rounded-xl bg-brand-navy text-brand-gold flex items-center justify-center shrink-0 mt-0.5">
+              <i data-lucide="mail" class="w-4 h-4"></i>
+            </div>
+            <div>
+              <div class="font-bold text-brand-navy text-sm">Email Address</div>
+              <p class="text-slate-600 mt-1">For referrals, reports, and administrative inquiries:</p>
+              <a href="mailto:{{ clinic.email }}" class="text-brand-navy font-bold text-sm block mt-1 hover:text-brand-gold">
+                {{ clinic.email }}
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Weekly Operating Schedule Table -->
+        <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
+          <h4 class="font-serif font-bold text-sm text-brand-navy flex items-center gap-2">
+            <i data-lucide="clock" class="w-4 h-4 text-brand-goldDark"></i> Clinic Operating Schedule
+          </h4>
+          <div class="space-y-1.5 text-xs">
+            <div class="flex justify-between py-1 border-b border-slate-200">
+              <span class="font-medium text-slate-700">Monday – Saturday:</span>
+              <span class="font-bold text-slate-900">10:00 AM – 2:00 PM & 4:00 PM – 6:30 PM</span>
+            </div>
+            <div class="flex justify-between py-1 text-slate-500">
+              <span class="font-medium">Sunday:</span>
+              <span class="italic text-amber-700">Contact clinic to confirm availability</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right Column: Interactive Enquiry Form & Google Map -->
+      <div class="lg:col-span-7 space-y-8">
+        
+        <!-- Enquiry Form -->
+        <div class="luxury-card p-6 sm:p-8 rounded-3xl border border-brand-gold/30 shadow-xl space-y-6">
+          <div>
+            <h3 class="text-xl sm:text-2xl font-serif font-bold text-brand-navy">Send A Dental Enquiry</h3>
+            <p class="text-xs text-slate-500 mt-1">Have a question regarding root canals, Invisalign, veneers or implants? Our clinical coordinators respond promptly.</p>
+          </div>
+
+          <form id="contactEnquiryForm" onsubmit="submitEnquiry(event)" class="space-y-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1">Your Name *</label>
+                <input type="text" id="enqName" required minlength="2" placeholder="e.g. Ramesh Kumar" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-xs focus:outline-none focus:border-brand-gold">
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1">Mobile Phone *</label>
+                <input type="tel" id="enqPhone" required minlength="10" placeholder="e.g. +91 98450 12345" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-xs focus:outline-none focus:border-brand-gold">
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1">Email Address</label>
+                <input type="email" id="enqEmail" placeholder="e.g. ramesh@example.com" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-xs focus:outline-none focus:border-brand-gold">
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1">Treatment of Interest</label>
+                <select id="enqInterest" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-xs bg-white focus:outline-none focus:border-brand-gold">
+                  <option value="">General Dental Consultation</option>
+                  <option value="Microscopic Root Canal">Microscopic Root Canal</option>
+                  <option value="Cosmetic Dentistry & Bonding">Cosmetic Dentistry & Bonding</option>
+                  <option value="Smile Makeovers">Smile Makeovers</option>
+                  <option value="Veneers and Laminates">Veneers and Laminates</option>
+                  <option value="Invisalign Clear Aligners">Invisalign Clear Aligners</option>
+                  <option value="Dental Implants">Dental Implants</option>
+                  <option value="Wisdom Tooth Removal">Wisdom Tooth Removal</option>
+                  <option value="Pediatric Dentistry">Pediatric Dentistry</option>
+                  <option value="Scaling & Cleaning">Scaling & Cleaning</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">Your Message or Dental Concern *</label>
+              <textarea id="enqMessage" required rows="3" placeholder="Tell us about your dental query or request..." class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-xs focus:outline-none focus:border-brand-gold"></textarea>
+            </div>
+
+            <button type="submit" id="enqSubmitBtn" class="w-full py-3.5 rounded-xl bg-brand-navy hover:bg-brand-deepBlue text-white font-bold text-xs uppercase tracking-wider transition shadow-md flex items-center justify-center gap-2">
+              <span id="enqBtnText">Submit Dental Enquiry</span>
+              <div id="enqSpinner" class="hidden w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+            </button>
+          </form>
+        </div>
+
+        <!-- Embedded Interactive Map -->
+        <div class="rounded-3xl overflow-hidden border border-brand-gold/30 shadow-lg relative aspect-[16/9] bg-brand-navy">
+          <!-- Fallback Interactive Map Embed -->
+          <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3897.986068222627!2d76.6168019!3d12.3385012!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3baf7a8f15d9a9b7%3A0x7d287bb16f082e63!2sVijaynagar%20Main%20Rd%2C%20Mysuru%2C%20Karnataka%20570017!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" 
+            width="100%" 
+            height="100%" 
+            style="border:0;" 
+            allowfullscreen="" 
+            loading="lazy" 
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Enamel Microscopic Dentistry Google Map Location">
+          </iframe>
+          <div class="absolute bottom-3 right-3">
+            <a href="{{ clinic.map_url }}" target="_blank" rel="noopener" class="px-4 py-2 rounded-xl bg-brand-navy/95 backdrop-blur-md text-brand-gold font-bold text-xs border border-brand-gold/30 shadow-md flex items-center gap-1.5 hover:bg-brand-deepBlue transition">
+              <i data-lucide="navigation" class="w-3.5 h-3.5"></i> Open Full Map
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+  async function submitEnquiry(e) {
+    e.preventDefault();
+    const name = document.getElementById('enqName').value.trim();
+    const phone = document.getElementById('enqPhone').value.trim();
+    const email = document.getElementById('enqEmail').value.trim();
+    const interest = document.getElementById('enqInterest').value;
+    const msg = document.getElementById('enqMessage').value.trim();
+
+    if (!name || name.length < 2) {
+      showToast("Please enter your name.", "error");
+      return;
+    }
+    if (!phone || phone.length < 10) {
+      showToast("Please provide a valid 10-digit phone number.", "error");
+      return;
+    }
+    if (!msg || msg.length < 5) {
+      showToast("Please enter a short message describing your query.", "error");
+      return;
+    }
+
+    const btn = document.getElementById('enqSubmitBtn');
+    const btnText = document.getElementById('enqBtnText');
+    const spinner = document.getElementById('enqSpinner');
+
+    btn.disabled = true;
+    btnText.innerText = "Transmitting Message...";
+    spinner.classList.remove('hidden');
+
+    try {
+      const res = await fetch('/api/enquiries', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: name,
+          phone: phone,
+          email: email || null,
+          treatment_interest: interest || null,
+          message: msg
+        })
+      });
+      const data = await res.json();
+
+      if (!res.ok || !data.success) {
+        showToast(data.detail || "Failed to send enquiry. Please try again.", "error");
+        btn.disabled = false;
+        btnText.innerText = "Submit Dental Enquiry";
+        spinner.classList.add('hidden');
+        return;
+      }
+
+      showToast("Thank you! Your enquiry has been received by our clinic.", "success");
+      document.getElementById('contactEnquiryForm').reset();
+      btn.disabled = false;
+      btnText.innerText = "Enquiry Sent ✓";
+      spinner.classList.add('hidden');
+      setTimeout(() => {
+        btnText.innerText = "Submit Dental Enquiry";
+      }, 3000);
+
+    } catch (err) {
+      showToast("Network error submitting enquiry. Please call us directly.", "error");
+      btn.disabled = false;
+      btnText.innerText = "Submit Dental Enquiry";
+      spinner.classList.add('hidden');
+    }
+  }
+</script>
+{% endblock %}

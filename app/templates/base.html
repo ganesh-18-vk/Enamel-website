@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Enamel Microscopic Dentistry | Precision Dental Clinic in Mysuru{% endblock %}</title>
+  <meta name="description" content="{% block meta_desc %}Experience advanced microscopic dentistry in Mysuru with Dr. H S Shreyas, Dr. Rohit, and Dr. Jithin. Specialized in root canal, smile makeovers, dental implants & Invisalign under 25x surgical magnification.{% endblock %}">
+  <meta name="keywords" content="best dentist in mysore, microscopic dentist in mysore, root canal treatment in mysore, cosmetic dentist in vijaynagar, dental clinic in vijaynagar mysore, dental implants in mysore, invisalign in mysore">
+  <link rel="canonical" href="{{ request.url }}">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{ request.url }}">
+  <meta property="og:title" content="{% block og_title %}Enamel Microscopic Dentistry | Precision Dental Clinic in Mysuru{% endblock %}">
+  <meta property="og:description" content="{% block og_desc %}Experience advanced microscopic dentistry in Mysuru with up to 25x surgical magnification and dedicated dental specialists.{% endblock %}">
+  <meta property="og:image" content="/static/images/hero-microscope.svg">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/static/images/logo.svg">
+
+  <!-- Google Fonts: Playfair Display & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN with custom design tokens -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              navy: '#0B1B2B',
+              darkNavy: '#07111C',
+              deepBlue: '#0F2438',
+              slateBlue: '#162E47',
+              gold: '#C5A880',
+              goldLight: '#E2CA9E',
+              goldDark: '#9E7B47',
+              ivory: '#FDFBF7',
+              ivoryDark: '#F4EFE6',
+              warmWhite: '#FCFAF6'
+            }
+          },
+          fontFamily: {
+            serif: ['"Playfair Display"', 'Georgia', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Custom CSS for luxury micro-interactions -->
+  <style>
+    .gold-gradient-text {
+      background: linear-gradient(135deg, #FBF7EE 0%, #C5A880 50%, #9E7B47 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .gold-border-gradient {
+      border-image: linear-gradient(135deg, #E2CA9E, #C5A880, #9E7B47) 1;
+    }
+    .luxury-card {
+      background: #FFFFFF;
+      border: 1px solid rgba(226, 202, 158, 0.25);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .luxury-card:hover {
+      border-color: rgba(197, 168, 128, 0.6);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 25px -5px rgba(11, 27, 43, 0.08), 0 8px 10px -6px rgba(11, 27, 43, 0.04);
+    }
+    .gold-glow {
+      box-shadow: 0 0 25px rgba(197, 168, 128, 0.25);
+    }
+    /* Hide scrollbars on horizontal tabs */
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  </style>
+
+  <!-- Schema.org JSON-LD Structured Data for LocalBusiness & Dentist -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": ["Dentist", "LocalBusiness", "MedicalBusiness"],
+    "name": "Enamel Microscopic Dentistry",
+    "image": "https://enamelmd.com/static/images/logo.svg",
+    "@id": "https://enamelmd.com/#clinic",
+    "url": "https://enamelmd.com",
+    "telephone": "+918867374949",
+    "email": "contact@enamelmd.com",
+    "priceRange": "$$",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "#42, 2nd Cross, Mahajana Layout, Vijaynagar Main Road",
+      "addressLocality": "Mysuru",
+      "addressRegion": "Karnataka",
+      "postalCode": "570017",
+      "addressCountry": "IN"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 12.3385,
+      "longitude": 76.6190
+    },
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+        "opens": "10:00",
+        "closes": "14:00"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+        "opens": "16:00",
+        "closes": "18:30"
+      }
+    ],
+    "medicalSpecialty": [
+      "Endodontics",
+      "Orthodontics",
+      "Periodontics",
+      "Cosmetic Dentistry",
+      "Implantology",
+      "Microscopic Dentistry"
+    ]
+  }
+  </script>
+
+  {% block extra_head %}{% endblock %}
+</head>
+<body class="bg-brand-warmWhite text-slate-800 font-sans antialiased selection:bg-brand-goldLight selection:text-brand-navy flex flex-col min-h-screen">
+
+  <!-- TOP BAR (Clinic Contact & Timings) -->
+  <div class="bg-brand-darkNavy text-slate-300 text-xs border-b border-slate-800 py-2 px-4 sm:px-8">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
+      <div class="flex items-center gap-6">
+        <span class="flex items-center gap-1.5 text-slate-400">
+          <i data-lucide="map-pin" class="w-3.5 h-3.5 text-brand-gold"></i>
+          #42, 2nd Cross, Mahajana Layout, Vijaynagar Main Rd, Mysuru
+        </span>
+        <span class="hidden md:flex items-center gap-1.5 text-slate-400">
+          <i data-lucide="clock" class="w-3.5 h-3.5 text-brand-gold"></i>
+          Mon–Sat: 10 AM–2 PM & 4 PM–6:30 PM
+        </span>
+      </div>
+      <div class="flex items-center gap-4">
+        <a href="tel:{{ clinic.phone_clean }}" class="flex items-center gap-1.5 text-brand-goldLight hover:text-white font-medium transition">
+          <i data-lucide="phone" class="w-3.5 h-3.5 text-brand-gold"></i>
+          {{ clinic.phone }}
+        </a>
+        <span class="text-slate-600">|</span>
+        <a href="https://wa.me/{{ clinic.phone_clean }}?text={{ clinic.whatsapp_prefill | urlencode }}" target="_blank" rel="noopener" class="flex items-center gap-1 text-emerald-400 hover:text-emerald-300 font-medium transition">
+          <i data-lucide="message-circle" class="w-3.5 h-3.5"></i>
+          WhatsApp
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN NAVIGATION HEADER -->
+  <header class="sticky top-0 z-40 bg-brand-navy/95 backdrop-blur-md border-b border-brand-deepBlue/80 shadow-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-8 h-20 flex items-center justify-between">
+      <!-- Clinic Logo -->
+      <a href="/" class="flex items-center gap-3 group">
+        <img src="/static/images/logo-white.svg" alt="Enamel Microscopic Dentistry Logo" class="h-12 w-auto transition transform group-hover:scale-[1.02]">
+      </a>
+
+      <!-- Desktop Navigation Links -->
+      <nav class="hidden lg:flex items-center gap-7 text-sm font-medium text-slate-200">
+        <a href="/" class="hover:text-brand-gold transition {% if active_page == 'home' %}text-brand-gold border-b-2 border-brand-gold pb-1{% endif %}">Home</a>
+        <a href="/about" class="hover:text-brand-gold transition {% if active_page == 'about' %}text-brand-gold border-b-2 border-brand-gold pb-1{% endif %}">About Us</a>
+        <a href="/doctors" class="hover:text-brand-gold transition {% if active_page == 'doctors' %}text-brand-gold border-b-2 border-brand-gold pb-1{% endif %}">Our Doctors</a>
+        
+        <!-- Treatments Dropdown -->
+        <div class="relative group py-2">
+          <a href="/treatments" class="flex items-center gap-1 hover:text-brand-gold transition {% if active_page == 'treatments' %}text-brand-gold border-b-2 border-brand-gold pb-1{% endif %}">
+            Treatments
+            <i data-lucide="chevron-down" class="w-3.5 h-3.5 transition group-hover:rotate-180"></i>
+          </a>
+          <!-- Dropdown Mega Menu -->
+          <div class="absolute left-1/2 -translate-x-1/2 top-full hidden group-hover:block w-[540px] p-5 bg-brand-deepBlue border border-brand-gold/30 rounded-2xl shadow-2xl z-50">
+            <div class="grid grid-cols-2 gap-3 text-xs">
+              <a href="/treatments/microscopic-root-canal" class="p-2.5 rounded-lg hover:bg-brand-navy text-slate-200 hover:text-brand-goldLight transition flex items-center gap-2.5">
+                <span class="w-2 h-2 rounded-full bg-brand-gold"></span>
+                <div>
+                  <div class="font-semibold text-white">Microscopic Root Canal</div>
+                  <div class="text-[10px] text-slate-400">25x Magnification Precision</div>
+                </div>
+              </a>
+              <a href="/treatments/smile-makeovers" class="p-2.5 rounded-lg hover:bg-brand-navy text-slate-200 hover:text-brand-goldLight transition flex items-center gap-2.5">
+                <span class="w-2 h-2 rounded-full bg-brand-gold"></span>
+                <div>
+                  <div class="font-semibold text-white">Smile Makeovers</div>
+                  <div class="text-[10px] text-slate-400">Digital 3D Aesthetic Design</div>
+                </div>
+              </a>
+              <a href="/treatments/dental-veneers-and-laminates" class="p-2.5 rounded-lg hover:bg-brand-navy text-slate-200 hover:text-brand-goldLight transition flex items-center gap-2.5">
+                <span class="w-2 h-2 rounded-full bg-brand-gold"></span>
+                <div>
+                  <div class="font-semibold text-white">Veneers & Laminates</div>
+                  <div class="text-[10px] text-slate-400">0.3mm Ultra-thin Porcelain</div>
+                </div>
+              </a>
+              <a href="/treatments/invisalign" class="p-2.5 rounded-lg hover:bg-brand-navy text-slate-200 hover:text-brand-goldLight transition flex items-center gap-2.5">
+                <span class="w-2 h-2 rounded-full bg-brand-gold"></span>
+                <div>
+                  <div class="font-semibold text-white">Invisalign Aligners</div>
+                  <div class="text-[10px] text-slate-400">Certified Specialist Provider</div>
+                </div>
+              </a>
+              <a href="/treatments/dental-implants" class="p-2.5 rounded-lg hover:bg-brand-navy text-slate-200 hover:text-brand-goldLight transition flex items-center gap-2.5">
+                <span class="w-2 h-2 rounded-full bg-brand-gold"></span>
+                <div>
+                  <div class="font-semibold text-white">Dental Implants</div>
+                  <div class="text-[10px] text-slate-400">Periodontist-Led Placement</div>
+                </div>
+              </a>
+              <a href="/treatments" class="p-2.5 rounded-lg bg-brand-navy/60 hover:bg-brand-navy text-brand-gold hover:text-brand-goldLight transition flex items-center justify-between font-semibold">
+                <span>View All 14 Treatments →</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <a href="/testimonials" class="hover:text-brand-gold transition {% if active_page == 'testimonials' %}text-brand-gold border-b-2 border-brand-gold pb-1{% endif %}">Testimonials</a>
+        <a href="/gallery" class="hover:text-brand-gold transition {% if active_page == 'gallery' %}text-brand-gold border-b-2 border-brand-gold pb-1{% endif %}">Gallery</a>
+        <a href="/contact" class="hover:text-brand-gold transition {% if active_page == 'contact' %}text-brand-gold border-b-2 border-brand-gold pb-1{% endif %}">Contact</a>
+      </nav>
+
+      <!-- Desktop Action Buttons -->
+      <div class="hidden lg:flex items-center gap-4">
+        <a href="/book" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-brand-goldLight via-brand-gold to-brand-goldDark text-brand-navy font-bold text-xs uppercase tracking-wider hover:brightness-110 transition shadow-lg shadow-brand-gold/20 transform active:scale-95">
+          <i data-lucide="calendar" class="w-4 h-4"></i>
+          Book Appointment
+        </a>
+      </div>
+
+      <!-- Mobile Hamburger Button -->
+      <button id="mobileMenuBtn" aria-label="Open Navigation Menu" class="lg:hidden p-2 text-slate-200 hover:text-brand-gold transition">
+        <i data-lucide="menu" class="w-6 h-6"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- MOBILE NAVIGATION DRAWER (Slide-over) -->
+  <div id="mobileDrawer" class="fixed inset-0 z-50 transform translate-x-full transition-transform duration-300 ease-in-out lg:hidden" aria-hidden="true">
+    <div id="mobileBackdrop" class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
+    <div class="absolute right-0 top-0 bottom-0 w-80 max-w-full bg-brand-navy border-l border-brand-deepBlue p-6 flex flex-col justify-between overflow-y-auto">
+      <div>
+        <div class="flex items-center justify-between pb-6 border-b border-slate-800">
+          <img src="/static/images/logo-white.svg" alt="Enamel Microscopic Dentistry" class="h-10 w-auto">
+          <button id="closeDrawerBtn" aria-label="Close Navigation Menu" class="p-1 text-slate-400 hover:text-white">
+            <i data-lucide="x" class="w-6 h-6"></i>
+          </button>
+        </div>
+        <nav class="flex flex-col gap-4 mt-6 text-base font-medium text-slate-200">
+          <a href="/" class="py-2 border-b border-slate-800/50 hover:text-brand-gold">Home</a>
+          <a href="/about" class="py-2 border-b border-slate-800/50 hover:text-brand-gold">About Us</a>
+          <a href="/doctors" class="py-2 border-b border-slate-800/50 hover:text-brand-gold">Our Doctors</a>
+          <a href="/treatments" class="py-2 border-b border-slate-800/50 hover:text-brand-gold">Dental Treatments (14)</a>
+          <a href="/testimonials" class="py-2 border-b border-slate-800/50 hover:text-brand-gold">Patient Testimonials</a>
+          <a href="/gallery" class="py-2 border-b border-slate-800/50 hover:text-brand-gold">Clinic Gallery</a>
+          <a href="/contact" class="py-2 border-b border-slate-800/50 hover:text-brand-gold">Contact Us</a>
+          <a href="/admin/login" class="py-2 text-xs text-slate-400 hover:text-brand-gold flex items-center gap-1.5 mt-2">
+            <i data-lucide="shield-check" class="w-3.5 h-3.5"></i> Admin Portal
+          </a>
+        </nav>
+      </div>
+
+      <div class="pt-6 border-t border-slate-800 flex flex-col gap-3">
+        <a href="/book" class="w-full py-3 text-center rounded-xl bg-brand-gold text-brand-navy font-bold text-sm tracking-wide">
+          Book An Appointment
+        </a>
+        <a href="tel:{{ clinic.phone_clean }}" class="w-full py-2.5 text-center rounded-xl border border-brand-gold/40 text-brand-goldLight text-xs flex items-center justify-center gap-2">
+          <i data-lucide="phone" class="w-4 h-4"></i> Call {{ clinic.phone }}
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN BODY CONTENT -->
+  <main class="flex-grow">
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- LUXURY FOOTER -->
+  <footer class="bg-brand-darkNavy text-slate-300 pt-16 pb-12 border-t border-brand-deepBlue text-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-slate-800">
+        
+        <!-- Col 1: Clinic Overview -->
+        <div class="space-y-4">
+          <img src="/static/images/logo-white.svg" alt="Enamel Microscopic Dentistry Logo" class="h-12 w-auto">
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Redefining dental care in Mysuru through precision microscopic technology, minimally invasive procedures, and specialist-driven clinical excellence.
+          </p>
+          <div class="pt-2 flex items-center gap-3 text-slate-400">
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-deepBlue text-brand-goldLight text-[11px] font-medium border border-brand-gold/20">
+              <i data-lucide="microscope" class="w-3 h-3 text-brand-gold"></i> Up to 25x Magnification
+            </span>
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-deepBlue text-brand-goldLight text-[11px] font-medium border border-brand-gold/20">
+              <i data-lucide="shield" class="w-3 h-3 text-brand-gold"></i> ISO-Grade Sterility
+            </span>
+          </div>
+        </div>
+
+        <!-- Col 2: Treatments Quick Links -->
+        <div>
+          <h3 class="text-white font-serif font-semibold text-base mb-4 tracking-wide border-l-2 border-brand-gold pl-3">Dental Services</h3>
+          <ul class="space-y-2 text-xs text-slate-400">
+            <li><a href="/treatments/microscopic-root-canal" class="hover:text-brand-gold transition">Microscopic Root Canal</a></li>
+            <li><a href="/treatments/cosmetic-dentistry" class="hover:text-brand-gold transition">Cosmetic Dentistry & Bonding</a></li>
+            <li><a href="/treatments/smile-makeovers" class="hover:text-brand-gold transition">Digital Smile Makeovers</a></li>
+            <li><a href="/treatments/dental-veneers-and-laminates" class="hover:text-brand-gold transition">Porcelain Veneers & Laminates</a></li>
+            <li><a href="/treatments/invisalign" class="hover:text-brand-gold transition">Invisalign Clear Aligners</a></li>
+            <li><a href="/treatments/dental-implants" class="hover:text-brand-gold transition">Dental Implants & Restoration</a></li>
+            <li><a href="/treatments/braces-and-orthodontics" class="hover:text-brand-gold transition">Braces & Orthodontics</a></li>
+            <li><a href="/treatments" class="text-brand-gold hover:underline font-medium">Explore All 14 Treatments →</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Clinic Hours & Schedule -->
+        <div>
+          <h3 class="text-white font-serif font-semibold text-base mb-4 tracking-wide border-l-2 border-brand-gold pl-3">Clinic Schedule</h3>
+          <div class="space-y-3 text-xs text-slate-400">
+            <div>
+              <span class="font-medium text-slate-200">Monday – Saturday:</span>
+              <p class="text-brand-goldLight font-semibold mt-0.5">Morning: 10:00 AM – 2:00 PM</p>
+              <p class="text-brand-goldLight font-semibold">Evening: 4:00 PM – 6:30 PM</p>
+            </div>
+            <div>
+              <span class="font-medium text-slate-200">Sunday:</span>
+              <p class="text-amber-400/90 italic">Contact clinic to confirm availability</p>
+            </div>
+            <div class="pt-2 text-[11px] text-slate-500">
+              *By appointment. Emergency consultations available on request.
+            </div>
+          </div>
+        </div>
+
+        <!-- Col 4: Address & Contact Details -->
+        <div>
+          <h3 class="text-white font-serif font-semibold text-base mb-4 tracking-wide border-l-2 border-brand-gold pl-3">Location & Contact</h3>
+          <address class="not-italic space-y-3 text-xs text-slate-400">
+            <p class="flex items-start gap-2.5">
+              <i data-lucide="map-pin" class="w-4 h-4 text-brand-gold shrink-0 mt-0.5"></i>
+              <span>#42, 2nd Cross, Mahajana Layout, Vijaynagar Main Road, Mysuru, Karnataka 570017</span>
+            </p>
+            <p class="flex items-center gap-2.5">
+              <i data-lucide="phone" class="w-4 h-4 text-brand-gold shrink-0"></i>
+              <a href="tel:{{ clinic.phone_clean }}" class="text-slate-200 hover:text-brand-gold transition">{{ clinic.phone }}</a>
+            </p>
+            <p class="flex items-center gap-2.5">
+              <i data-lucide="mail" class="w-4 h-4 text-brand-gold shrink-0"></i>
+              <a href="mailto:{{ clinic.email }}" class="text-slate-200 hover:text-brand-gold transition">{{ clinic.email }}</a>
+            </p>
+            <div class="pt-2 flex items-center gap-3">
+              <a href="{{ clinic.map_url }}" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-brand-deepBlue hover:bg-brand-slateBlue text-xs text-slate-200 border border-slate-700 transition">
+                <i data-lucide="navigation" class="w-3.5 h-3.5 text-brand-gold"></i>
+                Get Directions
+              </a>
+              <a href="https://wa.me/{{ clinic.phone_clean }}?text={{ clinic.whatsapp_prefill | urlencode }}" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-950/80 hover:bg-emerald-900 text-xs text-emerald-300 border border-emerald-800 transition">
+                <i data-lucide="message-circle" class="w-3.5 h-3.5"></i>
+                WhatsApp
+              </a>
+            </div>
+          </address>
+        </div>
+
+      </div>
+
+      <!-- Bottom Bar & Policies -->
+      <div class="pt-8 flex flex-col md:flex-row items-center justify-between text-xs text-slate-500 gap-4">
+        <div>
+          © 2026 Enamel Microscopic Dentistry. All rights reserved.
+        </div>
+        <div class="flex flex-wrap items-center gap-6">
+          <a href="/privacy-policy" class="hover:text-slate-300 transition">Privacy Policy</a>
+          <a href="/terms-and-conditions" class="hover:text-slate-300 transition">Terms & Conditions</a>
+          <a href="/cancellation-policy" class="hover:text-slate-300 transition">Cancellation Policy</a>
+          <a href="/admin/login" class="text-slate-600 hover:text-brand-gold transition">Staff Login</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- FLOATING WHATSAPP BUTTON (Verified Number +91 88673 74949) -->
+  <a href="https://wa.me/{{ clinic.phone_clean }}?text={{ clinic.whatsapp_prefill | urlencode }}" 
+     target="_blank" 
+     rel="noopener"
+     aria-label="Enquire on WhatsApp"
+     class="fixed bottom-20 sm:bottom-8 right-6 z-40 flex items-center gap-2.5 px-4 py-3 rounded-full bg-emerald-600 text-white font-medium text-xs shadow-2xl hover:bg-emerald-500 transition-all transform hover:scale-105 group border-2 border-white/20">
+    <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+      <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2m.01 1.67c2.2 0 4.26.86 5.82 2.42a8.225 8.225 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.196 8.196 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24m4.52 11.63c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.02-1.25-.75-.67-1.25-1.5-1.4-1.75-.14-.25-.02-.39.11-.51.11-.11.25-.29.37-.44.13-.14.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.34-.76-1.84-.2-.49-.4-.42-.56-.43h-.48c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.13.17 1.78 2.71 4.3 3.8 2.53 1.09 2.53.73 2.98.69.45-.04 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.06-.1-.23-.17-.48-.29z"/>
+    </svg>
+    <span class="hidden sm:inline">Chat with Clinic</span>
+  </a>
+
+  <!-- PERSISTENT MOBILE BOOKING CTA BAR -->
+  <div class="fixed bottom-0 left-0 right-0 z-30 lg:hidden bg-brand-navy/95 backdrop-blur-md border-t border-slate-800 p-3 flex items-center justify-between gap-3 shadow-2xl">
+    <a href="tel:{{ clinic.phone_clean }}" class="flex-1 py-2.5 px-3 rounded-xl border border-slate-700 bg-brand-deepBlue text-slate-200 text-xs font-semibold flex items-center justify-center gap-1.5">
+      <i data-lucide="phone" class="w-3.5 h-3.5 text-brand-gold"></i>
+      Call Clinic
+    </a>
+    <a href="/book" class="flex-[2] py-2.5 px-4 rounded-xl bg-gradient-to-r from-brand-goldLight via-brand-gold to-brand-goldDark text-brand-navy font-bold text-xs uppercase tracking-wider text-center shadow-lg shadow-brand-gold/20">
+      Book Appointment
+    </a>
+  </div>
+
+  <!-- TOAST NOTIFICATION CONTAINER -->
+  <div id="toastContainer" class="fixed top-24 right-4 z-50 flex flex-col gap-2 max-w-sm pointer-events-none"></div>
+
+  <!-- Client-side script initialization -->
+  <script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+
+    // Mobile navigation drawer toggle
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const closeDrawerBtn = document.getElementById('closeDrawerBtn');
+    const mobileDrawer = document.getElementById('mobileDrawer');
+    const mobileBackdrop = document.getElementById('mobileBackdrop');
+
+    function openDrawer() {
+      mobileDrawer.classList.remove('translate-x-full');
+      document.body.classList.add('overflow-hidden');
+    }
+    function closeDrawer() {
+      mobileDrawer.classList.add('translate-x-full');
+      document.body.classList.remove('overflow-hidden');
+    }
+
+    if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', openDrawer);
+    if (closeDrawerBtn) closeDrawerBtn.addEventListener('click', closeDrawer);
+    if (mobileBackdrop) mobileBackdrop.addEventListener('click', closeDrawer);
+
+    // Global Toast Notification Helper
+    window.showToast = function(message, type = 'info') {
+      const container = document.getElementById('toastContainer');
+      const toast = document.createElement('div');
+      toast.className = `pointer-events-auto flex items-center gap-2 px-4 py-3 rounded-xl shadow-xl text-xs font-medium border transition-all duration-300 transform translate-y-2 opacity-0 ${
+        type === 'success' ? 'bg-emerald-950 text-emerald-200 border-emerald-800' :
+        type === 'error' ? 'bg-rose-950 text-rose-200 border-rose-800' :
+        'bg-brand-navy text-slate-200 border-brand-gold/40'
+      }`;
+      toast.innerHTML = `
+        <span class="shrink-0 text-base">${type === 'success' ? '✓' : type === 'error' ? '✕' : 'ℹ'}</span>
+        <span>${message}</span>
+      `;
+      container.appendChild(toast);
+      setTimeout(() => {
+        toast.classList.remove('translate-y-2', 'opacity-0');
+      }, 10);
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'translate-y-2');
+        setTimeout(() => toast.remove(), 300);
+      }, 4000);
+    };
+  </script>
+
+  {% block extra_scripts %}{% endblock %}
+</body>
+</html>

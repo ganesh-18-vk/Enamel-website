@@ -1,0 +1,234 @@
+{% extends "base.html" %}
+
+{% block title %}Photo Gallery | Enamel Microscopic Dentistry Mysuru{% endblock %}
+
+{% block content %}
+<!-- Hero Header -->
+<section class="bg-brand-navy py-16 text-center text-white border-b border-brand-deepBlue">
+  <div class="max-w-4xl mx-auto px-4 space-y-3">
+    <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-brand-deepBlue border border-brand-gold/30 text-brand-gold text-xs font-semibold uppercase tracking-wider">
+      VISUAL TOUR
+    </div>
+    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold">
+      Clinic & Technology Gallery
+    </h1>
+    <p class="text-slate-300 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
+      A glimpse inside our boutique clinical facility in Vijaynagar Mysuru, featuring surgical microscopes, sterilisation suites, and patient relaxation operatories.
+    </p>
+  </div>
+</section>
+
+<!-- Filter Tabs -->
+<section class="py-6 bg-brand-ivory border-b border-stone-200 sticky top-20 z-30 backdrop-blur-md bg-brand-ivory/95 shadow-sm">
+  <div class="max-w-7xl mx-auto px-4 sm:px-8">
+    <div class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1" id="galleryTabs">
+      <button onclick="filterGallery('All')" class="gal-tab-btn px-4 py-2 rounded-xl text-xs font-bold transition bg-brand-navy text-white shadow-sm" data-cat="All">All Images</button>
+      <button onclick="filterGallery('Microscopic Dentistry')" class="gal-tab-btn px-4 py-2 rounded-xl text-xs font-semibold text-slate-700 bg-white hover:bg-slate-100 border border-slate-200 transition" data-cat="Microscopic Dentistry">Microscopic Dentistry</button>
+      <button onclick="filterGallery('Clinic Interior')" class="gal-tab-btn px-4 py-2 rounded-xl text-xs font-semibold text-slate-700 bg-white hover:bg-slate-100 border border-slate-200 transition" data-cat="Clinic Interior">Clinic Interior</button>
+      <button onclick="filterGallery('Dental Technology')" class="gal-tab-btn px-4 py-2 rounded-xl text-xs font-semibold text-slate-700 bg-white hover:bg-slate-100 border border-slate-200 transition" data-cat="Dental Technology">Dental Technology</button>
+      <button onclick="filterGallery('Doctors and Specialists')" class="gal-tab-btn px-4 py-2 rounded-xl text-xs font-semibold text-slate-700 bg-white hover:bg-slate-100 border border-slate-200 transition" data-cat="Doctors and Specialists">Doctors & Specialists</button>
+      <button onclick="filterGallery('Treatment Environment')" class="gal-tab-btn px-4 py-2 rounded-xl text-xs font-semibold text-slate-700 bg-white hover:bg-slate-100 border border-slate-200 transition" data-cat="Treatment Environment">Treatment Environment</button>
+      <button onclick="filterGallery('Patient Smile Transformations')" class="gal-tab-btn px-4 py-2 rounded-xl text-xs font-semibold text-slate-700 bg-white hover:bg-slate-100 border border-slate-200 transition" data-cat="Patient Smile Transformations">Smile Transformations</button>
+    </div>
+  </div>
+</section>
+
+<!-- Gallery Grid -->
+<section class="py-16 bg-white min-h-[600px]">
+  <div class="max-w-7xl mx-auto px-4 sm:px-8">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="galleryGrid">
+      
+      <!-- Item 1 -->
+      <div class="gallery-item luxury-card rounded-2xl overflow-hidden group cursor-pointer" data-cat="Microscopic Dentistry" onclick="openLightbox('/static/images/hero-microscope.svg', 'Carl Zeiss Surgical Dental Operating Microscope', 'High-magnification visualization system providing up to 25x magnification with shadowless coaxial LED optics.')">
+        <div class="aspect-[16/11] bg-brand-navy overflow-hidden relative">
+          <img src="/static/images/hero-microscope.svg" alt="Dental Operating Microscope" class="w-full h-full object-cover transition duration-500 group-hover:scale-105">
+          <div class="absolute inset-0 bg-brand-navy/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+            <span class="w-10 h-10 rounded-full bg-white/90 text-brand-navy flex items-center justify-center text-lg">🔍</span>
+          </div>
+          <div class="absolute bottom-2 left-2 px-2.5 py-0.5 rounded bg-brand-darkNavy/90 text-brand-gold text-[10px] font-semibold">Microscopic Dentistry</div>
+        </div>
+        <div class="p-4">
+          <h3 class="font-serif font-bold text-sm text-brand-navy">Zeiss Surgical Operating Microscope</h3>
+          <p class="text-xs text-slate-500 mt-1">Magnifying root canal systems up to 25x</p>
+        </div>
+      </div>
+
+      <!-- Item 2 -->
+      <div class="gallery-item luxury-card rounded-2xl overflow-hidden group cursor-pointer" data-cat="Clinic Interior" onclick="openLightbox('/static/images/gallery-clinic-interior.svg', 'Boutique Patient Reception Lounge', 'Soothing, sanitized waiting environment engineered to eliminate healthcare anxiety.')">
+        <div class="aspect-[16/11] bg-brand-navy overflow-hidden relative">
+          <img src="/static/images/gallery-clinic-interior.svg" alt="Clinic Interior" class="w-full h-full object-cover transition duration-500 group-hover:scale-105">
+          <div class="absolute inset-0 bg-brand-navy/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+            <span class="w-10 h-10 rounded-full bg-white/90 text-brand-navy flex items-center justify-center text-lg">🔍</span>
+          </div>
+          <div class="absolute bottom-2 left-2 px-2.5 py-0.5 rounded bg-brand-darkNavy/90 text-brand-gold text-[10px] font-semibold">Clinic Interior</div>
+        </div>
+        <div class="p-4">
+          <h3 class="font-serif font-bold text-sm text-brand-navy">Patient Reception Lounge</h3>
+          <p class="text-xs text-slate-500 mt-1">Calming ivory and champagne-gold aesthetic</p>
+        </div>
+      </div>
+
+      <!-- Item 3 -->
+      <div class="gallery-item luxury-card rounded-2xl overflow-hidden group cursor-pointer" data-cat="Treatment Environment" onclick="openLightbox('/static/images/gallery-operatory.svg', 'Advanced Clinical Operatory', 'Ergonomic operatory chair with patient ceiling entertainment screens and HEPA air purification.')">
+        <div class="aspect-[16/11] bg-brand-navy overflow-hidden relative">
+          <img src="/static/images/gallery-operatory.svg" alt="Treatment Environment" class="w-full h-full object-cover transition duration-500 group-hover:scale-105">
+          <div class="absolute inset-0 bg-brand-navy/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+            <span class="w-10 h-10 rounded-full bg-white/90 text-brand-navy flex items-center justify-center text-lg">🔍</span>
+          </div>
+          <div class="absolute bottom-2 left-2 px-2.5 py-0.5 rounded bg-brand-darkNavy/90 text-brand-gold text-[10px] font-semibold">Treatment Environment</div>
+        </div>
+        <div class="p-4">
+          <h3 class="font-serif font-bold text-sm text-brand-navy">Ergonomic Dental Operatory</h3>
+          <p class="text-xs text-slate-500 mt-1">Designed around patient tranquility and comfort</p>
+        </div>
+      </div>
+
+      <!-- Item 4 -->
+      <div class="gallery-item luxury-card rounded-2xl overflow-hidden group cursor-pointer" data-cat="Dental Technology" onclick="openLightbox('/static/images/gallery-sterilization.svg', 'Class-B Bio-Sterilisation Suite', 'Rigorous 5-stage decontamination protocol ensuring 100% sterile instruments for every patient.')">
+        <div class="aspect-[16/11] bg-brand-navy overflow-hidden relative">
+          <img src="/static/images/gallery-sterilization.svg" alt="Sterilisation Suite" class="w-full h-full object-cover transition duration-500 group-hover:scale-105">
+          <div class="absolute inset-0 bg-brand-navy/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+            <span class="w-10 h-10 rounded-full bg-white/90 text-brand-navy flex items-center justify-center text-lg">🔍</span>
+          </div>
+          <div class="absolute bottom-2 left-2 px-2.5 py-0.5 rounded bg-brand-darkNavy/90 text-brand-gold text-[10px] font-semibold">Dental Technology</div>
+        </div>
+        <div class="p-4">
+          <h3 class="font-serif font-bold text-sm text-brand-navy">Class-B Sterilisation Suite</h3>
+          <p class="text-xs text-slate-500 mt-1">Medical-grade biological spore autoclaves</p>
+        </div>
+      </div>
+
+      <!-- Item 5 -->
+      <div class="gallery-item luxury-card rounded-2xl overflow-hidden group cursor-pointer" data-cat="Dental Technology" onclick="openLightbox('/static/images/gallery-digital-imaging.svg', 'Digital 3D Intraoral Diagnostics', 'Ultra-low radiation digital sensors and 3D intraoral optical scanning for micron-accurate mapping.')">
+        <div class="aspect-[16/11] bg-brand-navy overflow-hidden relative">
+          <img src="/static/images/gallery-digital-imaging.svg" alt="Digital Diagnostics" class="w-full h-full object-cover transition duration-500 group-hover:scale-105">
+          <div class="absolute inset-0 bg-brand-navy/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+            <span class="w-10 h-10 rounded-full bg-white/90 text-brand-navy flex items-center justify-center text-lg">🔍</span>
+          </div>
+          <div class="absolute bottom-2 left-2 px-2.5 py-0.5 rounded bg-brand-darkNavy/90 text-brand-gold text-[10px] font-semibold">Dental Technology</div>
+        </div>
+        <div class="p-4">
+          <h3 class="font-serif font-bold text-sm text-brand-navy">Digital 3D Diagnostics</h3>
+          <p class="text-xs text-slate-500 mt-1">High-definition intraoral radiographic imaging</p>
+        </div>
+      </div>
+
+      <!-- Item 6 -->
+      <div class="gallery-item luxury-card rounded-2xl overflow-hidden group cursor-pointer" data-cat="Doctors and Specialists" onclick="openLightbox('/static/images/dr-shreyas.svg', 'Dr. H S Shreyas, Chief Microscopic Dentist', 'Style Italiano trained specialist in microscopic endodontics and biomimetic restorative care.')">
+        <div class="aspect-[16/11] bg-brand-navy overflow-hidden relative">
+          <img src="/static/images/dr-shreyas.svg" alt="Dr. H S Shreyas" class="w-full h-full object-cover transition duration-500 group-hover:scale-105">
+          <div class="absolute inset-0 bg-brand-navy/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+            <span class="w-10 h-10 rounded-full bg-white/90 text-brand-navy flex items-center justify-center text-lg">🔍</span>
+          </div>
+          <div class="absolute bottom-2 left-2 px-2.5 py-0.5 rounded bg-brand-darkNavy/90 text-brand-gold text-[10px] font-semibold">Doctors and Specialists</div>
+        </div>
+        <div class="p-4">
+          <h3 class="font-serif font-bold text-sm text-brand-navy">Dr. H S Shreyas</h3>
+          <p class="text-xs text-slate-500 mt-1">Microscopic Endodontist & Restorative Specialist</p>
+        </div>
+      </div>
+
+      <!-- Item 7 -->
+      <div class="gallery-item luxury-card rounded-2xl overflow-hidden group cursor-pointer" data-cat="Doctors and Specialists" onclick="openLightbox('/static/images/dr-rohit.svg', 'Dr. Rohit, Consultant Orthodontist', 'Certified Invisalign provider specializing in clear aligners and dentofacial orthopedics.')">
+        <div class="aspect-[16/11] bg-brand-navy overflow-hidden relative">
+          <img src="/static/images/dr-rohit.svg" alt="Dr. Rohit" class="w-full h-full object-cover transition duration-500 group-hover:scale-105">
+          <div class="absolute inset-0 bg-brand-navy/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+            <span class="w-10 h-10 rounded-full bg-white/90 text-brand-navy flex items-center justify-center text-lg">🔍</span>
+          </div>
+          <div class="absolute bottom-2 left-2 px-2.5 py-0.5 rounded bg-brand-darkNavy/90 text-brand-gold text-[10px] font-semibold">Doctors and Specialists</div>
+        </div>
+        <div class="p-4">
+          <h3 class="font-serif font-bold text-sm text-brand-navy">Dr. Rohit</h3>
+          <p class="text-xs text-slate-500 mt-1">Consultant Orthodontist & Invisalign Specialist</p>
+        </div>
+      </div>
+
+      <!-- Item 8 -->
+      <div class="gallery-item luxury-card rounded-2xl overflow-hidden group cursor-pointer" data-cat="Doctors and Specialists" onclick="openLightbox('/static/images/dr-jithin.svg', 'Dr. Jithin, Periodontist & Implantologist', 'Advanced piezosurgery fellow delivering long-lasting titanium implant restorations.')">
+        <div class="aspect-[16/11] bg-brand-navy overflow-hidden relative">
+          <img src="/static/images/dr-jithin.svg" alt="Dr. Jithin" class="w-full h-full object-cover transition duration-500 group-hover:scale-105">
+          <div class="absolute inset-0 bg-brand-navy/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+            <span class="w-10 h-10 rounded-full bg-white/90 text-brand-navy flex items-center justify-center text-lg">🔍</span>
+          </div>
+          <div class="absolute bottom-2 left-2 px-2.5 py-0.5 rounded bg-brand-darkNavy/90 text-brand-gold text-[10px] font-semibold">Doctors and Specialists</div>
+        </div>
+        <div class="p-4">
+          <h3 class="font-serif font-bold text-sm text-brand-navy">Dr. Jithin</h3>
+          <p class="text-xs text-slate-500 mt-1">Consultant Periodontist & Implantologist</p>
+        </div>
+      </div>
+
+      <!-- Item 9 -->
+      <div class="gallery-item luxury-card rounded-2xl overflow-hidden group cursor-pointer" data-cat="Patient Smile Transformations" onclick="openLightbox('/static/images/gallery-smile-transformation.svg', 'Biomimetic Ceramic Smile Design', 'Aesthetic smile transformation created with ultra-conservative lithium disilicate porcelain bonding.')">
+        <div class="aspect-[16/11] bg-brand-navy overflow-hidden relative">
+          <img src="/static/images/gallery-smile-transformation.svg" alt="Smile Transformation" class="w-full h-full object-cover transition duration-500 group-hover:scale-105">
+          <div class="absolute inset-0 bg-brand-navy/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+            <span class="w-10 h-10 rounded-full bg-white/90 text-brand-navy flex items-center justify-center text-lg">🔍</span>
+          </div>
+          <div class="absolute bottom-2 left-2 px-2.5 py-0.5 rounded bg-brand-darkNavy/90 text-brand-gold text-[10px] font-semibold">Patient Smile Transformations</div>
+        </div>
+        <div class="p-4">
+          <h3 class="font-serif font-bold text-sm text-brand-navy">Biomimetic Smile Design</h3>
+          <p class="text-xs text-slate-500 mt-1">Natural translucency matching native enamel</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- LIGHTBOX MODAL -->
+<div id="lightboxModal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md hidden flex items-center justify-center p-4">
+  <button onclick="closeLightbox()" class="absolute top-6 right-6 text-white hover:text-brand-gold text-2xl font-bold p-2 z-50">✕</button>
+  <div class="max-w-4xl w-full bg-brand-darkNavy rounded-3xl overflow-hidden border border-brand-gold/30 shadow-2xl relative">
+    <div class="relative aspect-[16/10] bg-black">
+      <img id="lightboxImg" src="" alt="Gallery Image Fullscreen" class="w-full h-full object-contain">
+    </div>
+    <div class="p-6 bg-brand-navy border-t border-brand-deepBlue text-left">
+      <h4 id="lightboxTitle" class="font-serif font-bold text-lg text-white"></h4>
+      <p id="lightboxDesc" class="text-xs text-slate-300 mt-1"></p>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+  function filterGallery(cat) {
+    document.querySelectorAll('.gal-tab-btn').forEach(btn => {
+      if (btn.dataset.cat === cat) {
+        btn.className = 'gal-tab-btn px-4 py-2 rounded-xl text-xs font-bold transition bg-brand-navy text-white shadow-sm';
+      } else {
+        btn.className = 'gal-tab-btn px-4 py-2 rounded-xl text-xs font-semibold text-slate-700 bg-white hover:bg-slate-100 border border-slate-200 transition';
+      }
+    });
+
+    document.querySelectorAll('.gallery-item').forEach(item => {
+      if (cat === 'All' || item.dataset.cat === cat) {
+        item.classList.remove('hidden');
+      } else {
+        item.classList.add('hidden');
+      }
+    });
+  }
+
+  function openLightbox(src, title, desc) {
+    const modal = document.getElementById('lightboxModal');
+    document.getElementById('lightboxImg').src = src;
+    document.getElementById('lightboxTitle').innerText = title;
+    document.getElementById('lightboxDesc').innerText = desc;
+    modal.classList.remove('hidden');
+    document.body.classList.add('overflow-hidden');
+  }
+
+  function closeLightbox() {
+    const modal = document.getElementById('lightboxModal');
+    modal.classList.add('hidden');
+    document.body.classList.remove('overflow-hidden');
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeLightbox();
+  });
+</script>
+{% endblock %}

@@ -1,0 +1,168 @@
+{% extends "base.html" %}
+
+{% block title %}Dental Treatments & Procedures | Enamel Microscopic Dentistry Mysuru{% endblock %}
+
+{% block content %}
+<!-- Hero Header -->
+<section class="bg-brand-navy py-16 text-center text-white border-b border-brand-deepBlue">
+  <div class="max-w-4xl mx-auto px-4 space-y-3">
+    <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-brand-deepBlue border border-brand-gold/30 text-brand-gold text-xs font-semibold uppercase tracking-wider">
+      SPECIALIZED CLINICAL SERVICES
+    </div>
+    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold">
+      Dental Treatments & Procedures
+    </h1>
+    <p class="text-slate-300 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
+      Explore our comprehensive range of microscopic endodontics, biomimetic aesthetics, orthodontic alignment, and surgical implantology.
+    </p>
+  </div>
+</section>
+
+<!-- Filter & Search Section -->
+<section class="py-8 bg-brand-ivory border-b border-stone-200 sticky top-20 z-30 shadow-sm backdrop-blur-md bg-brand-ivory/95">
+  <div class="max-w-7xl mx-auto px-4 sm:px-8">
+    <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+      
+      <!-- Category Tabs -->
+      <div class="flex items-center gap-2 overflow-x-auto w-full md:w-auto pb-2 md:pb-0 no-scrollbar" id="categoryTabs">
+        <button onclick="filterCategory('All')" class="cat-btn px-4 py-2 rounded-xl text-xs font-bold transition bg-brand-navy text-white shadow-sm" data-category="All">
+          All (14)
+        </button>
+        <button onclick="filterCategory('Endodontics')" class="cat-btn px-4 py-2 rounded-xl text-xs font-semibold text-slate-700 bg-white hover:bg-slate-100 border border-slate-200 transition" data-category="Endodontics">
+          Endodontics
+        </button>
+        <button onclick="filterCategory('Aesthetics')" class="cat-btn px-4 py-2 rounded-xl text-xs font-semibold text-slate-700 bg-white hover:bg-slate-100 border border-slate-200 transition" data-category="Aesthetics">
+          Aesthetics & Smile
+        </button>
+        <button onclick="filterCategory('Orthodontics')" class="cat-btn px-4 py-2 rounded-xl text-xs font-semibold text-slate-700 bg-white hover:bg-slate-100 border border-slate-200 transition" data-category="Orthodontics">
+          Orthodontics & Invisalign
+        </button>
+        <button onclick="filterCategory('Implants & Surgery')" class="cat-btn px-4 py-2 rounded-xl text-xs font-semibold text-slate-700 bg-white hover:bg-slate-100 border border-slate-200 transition" data-category="Implants & Surgery">
+          Implants & Surgery
+        </button>
+        <button onclick="filterCategory('Preventive & Diagnostics')" class="cat-btn px-4 py-2 rounded-xl text-xs font-semibold text-slate-700 bg-white hover:bg-slate-100 border border-slate-200 transition" data-category="Preventive & Diagnostics">
+          Preventive & Diagnostics
+        </button>
+      </div>
+
+      <!-- Search Input -->
+      <div class="relative w-full md:w-72 shrink-0">
+        <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2"></i>
+        <input type="text" id="treatmentSearch" placeholder="Search treatment..." class="w-full pl-9 pr-4 py-2 rounded-xl border border-slate-200 bg-white text-xs focus:outline-none focus:border-brand-gold">
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Treatments Grid -->
+<section class="py-16 bg-white min-h-[500px]">
+  <div class="max-w-7xl mx-auto px-4 sm:px-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="treatmentsGrid">
+      {% for t in treatments %}
+      <div class="treatment-card luxury-card rounded-3xl overflow-hidden flex flex-col justify-between group" data-category="{{ t.category }}" data-title="{{ t.name | lower }}">
+        <div class="relative aspect-[16/10] bg-brand-navy overflow-hidden">
+          <img src="{{ t.image_url }}" alt="{{ t.name }}" class="w-full h-full object-cover transition duration-300 group-hover:scale-105">
+          <div class="absolute bottom-3 left-3 px-3 py-1 rounded-md bg-brand-darkNavy/90 backdrop-blur-md text-[11px] font-semibold text-brand-goldLight border border-brand-gold/30">
+            {{ t.category }}
+          </div>
+        </div>
+        <div class="p-6 flex-grow flex flex-col justify-between space-y-4">
+          <div>
+            <h3 class="font-serif font-bold text-lg text-brand-navy group-hover:text-brand-goldDark transition">
+              <a href="/treatments/{{ t.slug }}">{{ t.name }}</a>
+            </h3>
+            <p class="text-xs text-slate-600 mt-2 line-clamp-3 leading-relaxed">
+              {{ t.short_description }}
+            </p>
+          </div>
+
+          <div class="pt-4 border-t border-slate-100 flex items-center justify-between text-xs">
+            <div>
+              <span class="text-slate-400 text-[11px] block">Duration:</span>
+              <span class="font-semibold text-slate-700">~{{ t.duration_minutes }} Mins</span>
+            </div>
+            <div>
+              <span class="text-slate-400 text-[11px] block">Consultation:</span>
+              <span class="font-semibold text-brand-navy">₹{{ t.consultation_fee }}</span>
+            </div>
+          </div>
+
+          <div class="pt-2 flex items-center gap-2">
+            <a href="/treatments/{{ t.slug }}" class="flex-1 py-2.5 text-center rounded-xl border border-brand-gold/50 hover:bg-brand-ivory text-brand-navy font-semibold text-xs transition">
+              View Procedure →
+            </a>
+            <a href="/book?treatment={{ t.slug }}" class="px-4 py-2.5 rounded-xl bg-brand-navy hover:bg-brand-deepBlue text-white text-xs font-bold transition shadow-sm">
+              Book
+            </a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <div id="noResults" class="hidden text-center py-16">
+      <div class="text-slate-400 text-4xl mb-3">🔍</div>
+      <h3 class="text-base font-serif font-bold text-slate-700">No treatments match your search.</h3>
+      <p class="text-xs text-slate-500 mt-1">Try another keyword or category.</p>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+  let activeCat = 'All';
+  const searchInput = document.getElementById('treatmentSearch');
+  const cards = document.querySelectorAll('.treatment-card');
+  const noResults = document.getElementById('noResults');
+
+  function filterCategory(cat) {
+    activeCat = cat;
+    document.querySelectorAll('.cat-btn').forEach(btn => {
+      if (btn.dataset.category === cat) {
+        btn.className = 'cat-btn px-4 py-2 rounded-xl text-xs font-bold transition bg-brand-navy text-white shadow-sm';
+      } else {
+        btn.className = 'cat-btn px-4 py-2 rounded-xl text-xs font-semibold text-slate-700 bg-white hover:bg-slate-100 border border-slate-200 transition';
+      }
+    });
+    applyFilter();
+  }
+
+  function applyFilter() {
+    const q = (searchInput.value || '').toLowerCase().trim();
+    let visible = 0;
+
+    cards.forEach(card => {
+      const cardCat = card.dataset.category;
+      const cardTitle = card.dataset.title;
+
+      let matchCat = (activeCat === 'All');
+      if (!matchCat) {
+        if (activeCat === 'Implants & Surgery' && (cardCat === 'Surgery' || cardCat === 'Implantology')) matchCat = true;
+        else if (activeCat === 'Preventive & Diagnostics' && (cardCat === 'Preventive' || cardCat === 'Diagnostics' || cardCat === 'Pediatric')) matchCat = true;
+        else if (cardCat === activeCat) matchCat = true;
+      }
+
+      const matchQuery = !q || cardTitle.includes(q);
+
+      if (matchCat && matchQuery) {
+        card.classList.remove('hidden');
+        visible++;
+      } else {
+        card.classList.add('hidden');
+      }
+    });
+
+    if (visible === 0) {
+      noResults.classList.remove('hidden');
+    } else {
+      noResults.classList.add('hidden');
+    }
+  }
+
+  if (searchInput) {
+    searchInput.addEventListener('input', applyFilter);
+  }
+</script>
+{% endblock %}
